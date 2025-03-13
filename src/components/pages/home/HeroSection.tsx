@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function HeroSection() {
     return (
         <section className="container mx-auto px-6 py-10 md:py-24 flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 mb-10 md:mb-0">
+            <div className="md:w-1/2 mb-10 md:mb-0 animate__animated animate__bounceInLeft">
                 <h1 className="text-5xl text-[var(--color-footer)] md:text-6xl font-bold leading-tight mb-6">
                     Nanies
                     Deliciious
@@ -39,7 +39,7 @@ export default function HeroSection() {
             </div>
 
             <div className="md:w-1/2 relative">
-                <div className="relative">
+                <div className="relative animate__animated animate__bounceInRight">
                     <Image
                         src="/images/coffe-logo.png"
                         alt="Alowishus Coffee Cup"
