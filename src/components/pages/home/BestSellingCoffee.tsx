@@ -16,33 +16,55 @@ interface Product {
     price: number;
     image_url: string;
 }
+const categories = ["All", "Coffee", "Tea","Smoothie", "Pastry"];
 
 export default function BestSellingCoffee() {
     const [coffeeProducts, setCoffeeProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const pageSize = 4;
+    const [selectedCategory, setSelectedCategory] = useState("All");
 
-    const fetchProducts = async (pageNumber: number) => {
+
+    const fetchProducts = async (pageNumber: number, category: string) => {
+        setLoading(true);
         const start = (pageNumber - 1) * pageSize;
         const end = start + pageSize - 1;
-
-        const { data, error } = await supabase
+    
+        let query = supabase
             .from("products")
-            .select("id, name, description, price, image_url")
+            .select("id, name, description, price, image_url, category")
             .order("price", { ascending: false })
             .range(start, end);
+    
+        if (category !== "All") {
+            query = query.eq("category", category);
+        }
+     
+    
+        const { data, error } = await query;
+        console.log("Query với danhn mục mới:", data);
         if (error) {
             console.error("Error fetching products:", error);
+            setLoading(false);
+            return;
+        }
+    
+        if (pageNumber === 1) {
+            setCoffeeProducts(data || []);
         } else {
             setCoffeeProducts((prevProducts) => [...prevProducts, ...data]);
         }
+    
         setLoading(false);
     };
+    
 
     useEffect(() => {
-        fetchProducts(page);
-    }, [page]);
+        setCoffeeProducts([]);
+        setPage(1);
+        fetchProducts(1, selectedCategory);
+    }, [selectedCategory]);
 
     return (
         <section className="container mx-auto px-6 py-16">
@@ -51,6 +73,19 @@ export default function BestSellingCoffee() {
                 <p className="max-w-2xl mx-auto text-gray-600">
                     Enjoy the best selection of our premium coffee blends, crafted to perfection.
                 </p>
+            </div>
+            {/* Badge filter */}
+            <div className="flex justify-center gap-4 mb-8">
+                {categories.map((category) => (
+                    <button
+                        key={category}
+                        className={`px-4 py-2 rounded-md text-sm font-semibold transition-colors ${selectedCategory === category ? "bg-black text-white" : "bg-gray-200 text-gray-800"
+                            }`}
+                        onClick={() => setSelectedCategory(category)}
+                    >
+                        {category}
+                    </button>
+                ))}
             </div>
 
             {loading ? (
