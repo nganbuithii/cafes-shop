@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import 'animate.css';
 import { ToastContainer } from 'react-toastify';
 import { Playfair_Display, Poppins } from "next/font/google";
@@ -23,10 +21,8 @@ export default function RootLayout({
       
       <body suppressHydrationWarning 
       >
-        <Header />
         {children}
         <ToastContainer position="bottom-right"/>
-        <Footer />
       </body>
     </html>
   );

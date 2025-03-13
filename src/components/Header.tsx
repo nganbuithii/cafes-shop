@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import CartDrawer from "./pages/cart/CartDrawer";
 import { useCartStore } from "@/lib/cartStore";
+import { supabase } from "@/config/supabaseClient";
 
 export default function Header() {
     const [open, setOpen] = useState(false);
@@ -12,6 +13,24 @@ export default function Header() {
     const { cart } = useCartStore(); 
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0); 
 
+    const [userEmail, setUserEmail] = useState<string | null>(null);
+    useEffect(() => {
+        const checkUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            setUserEmail(user?.email || null);
+        };
+
+        checkUser();
+
+        // Lắng nghe sự thay đổi của trạng thái đăng nhập
+        const { data: authListener } = supabase.auth.onAuthStateChange((_, session) => {
+            setUserEmail(session?.user?.email || null);
+        });
+
+        return () => {
+            authListener.subscription.unsubscribe();
+        };
+    }, []);
 
     return (
         <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-40">
@@ -37,6 +56,14 @@ export default function Header() {
                     </Link>
                 </nav>
                 <div className="flex items-center space-x-4">
+                {userEmail ? (
+                        <span className="text-sm text-gray-700">Welcome, {userEmail}</span>
+                    ) : (
+                        <Link href="/login" className="text-sm text-blue-500">
+                            Login
+                        </Link>
+                    )}
+
                     <button onClick={() => setOpen(true)} className="relative">
                         <CiShoppingCart className="text-pink-500" size={30} />
                         {totalItems > 0 && (
