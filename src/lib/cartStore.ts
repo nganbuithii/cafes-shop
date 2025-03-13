@@ -1,5 +1,5 @@
 "use client";
-import { CartItem, CartState } from "@/components/types/cartType";
+import { CartState } from "@/components/types/cartType";
 import { create } from "zustand";
 
 export const useCartStore = create<CartState>((set) => ({
