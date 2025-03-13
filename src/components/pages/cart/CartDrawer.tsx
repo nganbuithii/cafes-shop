@@ -1,20 +1,8 @@
 "use client";
 
+import { CartDrawerProps } from "@/components/types/cartType";
 import Image from "next/image";
 
-interface CartItem {
-    id: number;
-    name: string;
-    price: number;
-    quantity: number;
-    image: string;
-}
-
-interface CartDrawerProps {
-    open: boolean;
-    setOpen: (open: boolean) => void;
-    cartItems: CartItem[];
-}
 
 export default function CartDrawer({ open, setOpen, cartItems }: CartDrawerProps) {
     return (
