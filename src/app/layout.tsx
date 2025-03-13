@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +26,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning >
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body suppressHydrationWarning 
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
