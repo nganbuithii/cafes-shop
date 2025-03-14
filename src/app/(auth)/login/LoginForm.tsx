@@ -2,17 +2,13 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/config/supabaseClient";
 import { LoginFormData, loginSchema } from "@/validation/auth";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { useAuth } from "@/queries/useAuth";
 
 export default function LoginForm() {
-    const router = useRouter();
-    const [serverError, setServerError] = useState("");
-
+    const { login, isLoading, error } = useAuth();
     const {
         register,
         handleSubmit,
@@ -21,24 +17,12 @@ export default function LoginForm() {
         resolver: zodResolver(loginSchema),
     });
 
-    const handleLogin = async (data: LoginFormData) => {
-        setServerError("");
-
-        const { error } = await supabase.auth.signInWithPassword({
-            email: data.email,
-            password: data.password,
-        });
-
-        if (error) {
-            setServerError(error.message);
-        } else {
-            router.push("/");
-        }
+    const onSubmit = (data: LoginFormData) => {
+        if(isLoading) return;
+        login(data); 
     };
-
     return (
-        <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
-            {serverError && <p className="text-red-500 text-xs mb-4">{serverError}</p>}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
             <div>
                 <input
@@ -59,14 +43,17 @@ export default function LoginForm() {
                 />
                 {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
             </div>
+            {error && <p className="text-red-500 text-xs mb-4">{error}</p>}
+
 
             <Link href="#" className="text-sm mb-8">Forget Password?</Link>
 
             <button
                 type="submit"
-                className="w-full bg-[var(--color-footer)] text-white py-3 rounded-lg"
+                disabled={isLoading} 
+                className="w-full bg-blue-600 text-white py-3 rounded-lg disabled:bg-blue-400"
             >
-                Login
+                {isLoading ? "Logging in..." : "Login"} 
             </button>
 
             <p className="text-center">OR</p>
