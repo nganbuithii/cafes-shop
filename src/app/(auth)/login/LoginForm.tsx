@@ -6,6 +6,7 @@ import { LoginFormData, loginSchema } from "@/validation/auth";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@/queries/useAuth";
+import { signinWithGoogle } from "@/lib/actions";
 
 export default function LoginForm() {
     const { login, isLoading, error } = useAuth();
@@ -18,8 +19,8 @@ export default function LoginForm() {
     });
 
     const onSubmit = (data: LoginFormData) => {
-        if(isLoading) return;
-        login(data); 
+        if (isLoading) return;
+        login(data);
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -50,15 +51,16 @@ export default function LoginForm() {
 
             <button
                 type="submit"
-                disabled={isLoading} 
+                disabled={isLoading}
                 className="w-full bg-blue-600 text-white py-3 rounded-lg disabled:bg-blue-400"
             >
-                {isLoading ? "Logging in..." : "Login"} 
+                {isLoading ? "Logging in..." : "Login"}
             </button>
 
             <p className="text-center">OR</p>
 
-            <button className="w-full flex items-center justify-center gap-3 border-2 border-gray-300 py-3 rounded-lg transition-all duration-300 hover:bg-gray-100 active:scale-95" >
+            <button type="button" className="w-full flex items-center justify-center gap-3 border-2 border-gray-300 py-3 rounded-lg transition-all duration-300 hover:bg-gray-100 active:scale-95" onClick={() => signinWithGoogle()}
+            >
                 <FcGoogle size={24} />
                 <span className="text-gray-700 font-medium">Login with Google</span>
             </button>
