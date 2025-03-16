@@ -1,10 +1,12 @@
 "use client";
 
 import { CartDrawerProps } from "@/components/types/cartType";
+import { useCartStore } from "@/store/cartStore";
 import Image from "next/image";
 
 
 export default function CartDrawer({ open, setOpen, cartItems }: CartDrawerProps) {
+    const { removeFromCart, updateQuantity } = useCartStore();
     return (
         <>
             {open && <div className="fixed inset-0 bg-black/20 z-50" onClick={() => setOpen(false)} />}
@@ -39,15 +41,21 @@ export default function CartDrawer({ open, setOpen, cartItems }: CartDrawerProps
                                 <div className="flex-1">
                                     <div className="flex justify-between">
                                         <h3 className="font-semibold ">{item.name}</h3>
-                                        <button className="text-gray-600 hover:text-red-500">Remove</button>
+                                        <button onClick={() => removeFromCart(item.id)} className="text-gray-600 hover:text-red-500">Remove</button>
                                     </div>
                                     <div className="flex items-center justify-between mt-4">
                                         <div className="flex items-center gap-2">
-                                            <button className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg">
+                                            <button onClick={() => {
+                                                if (item.quantity === 1) {
+                                                    removeFromCart(item.id);
+                                                } else {
+                                                    updateQuantity(item.id, item.quantity - 1);
+                                                }
+                                            }} className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg">
                                                 -
                                             </button>
                                             <span className="px-2">{item.quantity}</span>
-                                            <button className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg">
+                                            <button onClick={() => updateQuantity(item.id, Math.max(item.quantity + 1, 1))} className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg">
                                                 +
                                             </button>
                                         </div>

@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/lib/cartStore";
+import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";
 import { Product } from "@/components/types/productType";
 import { useProducts } from "@/queries/useProducts";

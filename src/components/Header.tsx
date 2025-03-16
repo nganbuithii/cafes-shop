@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import CartDrawer from "./pages/cart/CartDrawer";
-import { useCartStore } from "@/lib/cartStore";
+import { useCartStore } from "@/store/cartStore";
 import { supabase } from "@/config/supabaseClient";
 import { FiLogOut } from "react-icons/fi";
 import { useAuth } from "@/queries/useAuth";

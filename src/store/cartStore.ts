@@ -1,4 +1,3 @@
-"use client";
 import { CartState } from "@/components/types/cartType";
 import { create } from "zustand";
 
