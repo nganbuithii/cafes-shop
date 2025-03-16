@@ -1,18 +1,17 @@
 // src\services\authService.ts
+import { supabase } from "@/config/supabaseClient";
 import { LoginFormData } from "@/validation/auth";
 
 export async function loginUser(data: LoginFormData) {
-    const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+    const { data: authData, error } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
     });
 
-    const result = await response.json();
-    if (!response.ok) {
-        throw new Error(result.error || "Login Fail!");
+    if (error) {
+        throw new Error(error.message || "Login Fail!");
     }
 
-    return result;
+    return authData; 
 }
 

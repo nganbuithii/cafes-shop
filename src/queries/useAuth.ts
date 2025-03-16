@@ -1,4 +1,3 @@
-"use client";
 
 import { loginUser } from "@/services/authService";
 import { useMutation } from "@tanstack/react-query";
