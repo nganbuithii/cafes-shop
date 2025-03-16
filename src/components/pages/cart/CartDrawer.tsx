@@ -1,15 +1,16 @@
 
 import { CartDrawerProps } from "@/components/types/cartType";
+import { calculateTotal } from "@/lib/utils";
 import { useAuthStore } from "@/store/authStore";
 import { useCartStore } from "@/store/cartStore";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import CartItemCom from "./CartItem";
 
 
 export default function CartDrawer({ open, setOpen, cartItems }: CartDrawerProps) {
     const { removeFromCart, updateQuantity } = useCartStore();
     const router = useRouter();
-    const { user } = useAuthStore(); // Lấy user từ Zustand
+    const { user } = useAuthStore(); 
 
     const handleCheckout = () => {
         if (!user) {
@@ -17,6 +18,7 @@ export default function CartDrawer({ open, setOpen, cartItems }: CartDrawerProps
         } else {
             router.push("/cart");
         }
+        setOpen(false);
     };
 
 
@@ -42,49 +44,13 @@ export default function CartDrawer({ open, setOpen, cartItems }: CartDrawerProps
 
                     <div className="py-4 border-t border-b">
                         {cartItems.map((item) => (
-                            <div key={item.id} className="flex items-center gap-4 mb-6">
-                                <div className="h-24 w-24 flex-shrink-0 relative bg-gray-100 rounded">
-                                    <Image
-                                        src={item.image}
-                                        alt={item.name}
-                                        width={100}
-                                        height={100}
-                                        className="object-contain p-2"
-                                    />
-                                </div>
-                                <div className="flex-1">
-                                    <div className="flex justify-between">
-                                        <h3 className="font-semibold ">{item.name}</h3>
-                                        <button onClick={() => removeFromCart(item.id)} className="text-gray-600 hover:text-red-500">Remove</button>
-                                    </div>
-                                    <div className="flex items-center justify-between mt-4">
-                                        <div className="flex items-center gap-2">
-                                            <button onClick={() => {
-                                                if (item.quantity === 1) {
-                                                    removeFromCart(item.id);
-                                                } else {
-                                                    updateQuantity(item.id, item.quantity - 1);
-                                                }
-                                            }} className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg">
-                                                -
-                                            </button>
-                                            <span className="px-2">{item.quantity}</span>
-                                            <button onClick={() => updateQuantity(item.id, Math.max(item.quantity + 1, 1))} className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg">
-                                                +
-                                            </button>
-                                        </div>
-                                        <span className="font-bold">{item.price.toLocaleString("vi-VN")} VND</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <CartItemCom key={item.id} item={item} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
                         ))}
                     </div>
 
                     <div className="py-6 flex justify-between font-bold text-lg">
                         <span>Subtotal</span>
-                        <span>
-                            {cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toLocaleString("vi-VN")} VND
-                        </span>
+                        <span>{calculateTotal(cartItems).toLocaleString("vi-VN")} VND</span>
                     </div>
 
                     <div className="flex justify-end gap-2">
