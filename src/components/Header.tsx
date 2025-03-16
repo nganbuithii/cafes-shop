@@ -1,38 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import CartDrawer from "./pages/cart/CartDrawer";
 import { useCartStore } from "@/store/cartStore";
-import { supabase } from "@/config/supabaseClient";
 import { FiLogOut } from "react-icons/fi";
 import { useAuth } from "@/queries/useAuth";
+import { useAuthStore } from "@/store/authStore";
 
 export default function Header() {
     const [open, setOpen] = useState(false);
     const { logout } = useAuth();
     const { cart } = useCartStore();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const { user } = useAuthStore();
 
-    const [userEmail, setUserEmail] = useState<string | null>(null);
-    useEffect(() => {
-        const checkUser = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            setUserEmail(user?.email || null);
-        };
-
-        checkUser();
-
-        // Lắng nghe sự thay đổi của trạng thái đăng nhập
-        const { data: authListener } = supabase.auth.onAuthStateChange((_, session) => {
-            setUserEmail(session?.user?.email || null);
-        });
-
-        return () => {
-            authListener.subscription.unsubscribe();
-        };
-    }, []);
     const handleLogout =  () => {
         logout()
     };
@@ -71,9 +54,9 @@ export default function Header() {
 
 
                 <div className="flex items-center space-x-4">
-                    {userEmail ? (
+                    {user ? (
                         <>
-                            <span className="text-sm text-gray-700">Welcome, {userEmail}</span>
+                            <span className="text-sm text-gray-700">Welcome, {user.email}</span>
                             <button onClick={handleLogout} className="text-pink-500">
                                 <FiLogOut size={20} />
                             </button>

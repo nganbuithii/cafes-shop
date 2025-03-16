@@ -1,12 +1,26 @@
-"use client";
 
 import { CartDrawerProps } from "@/components/types/cartType";
+import { useAuthStore } from "@/store/authStore";
 import { useCartStore } from "@/store/cartStore";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 export default function CartDrawer({ open, setOpen, cartItems }: CartDrawerProps) {
     const { removeFromCart, updateQuantity } = useCartStore();
+    const router = useRouter();
+    const { user } = useAuthStore(); // Lấy user từ Zustand
+
+    const handleCheckout = () => {
+        if (!user) {
+            router.push("/login");
+        } else {
+            router.push("/cart");
+        }
+    };
+
+
+
     return (
         <>
             {open && <div className="fixed inset-0 bg-black/20 z-50" onClick={() => setOpen(false)} />}
@@ -80,7 +94,7 @@ export default function CartDrawer({ open, setOpen, cartItems }: CartDrawerProps
                         >
                             Continue Shopping
                         </button>
-                        <button
+                        <button onClick={handleCheckout}
                             className="inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 py-2 text-white bg-[var(--color-footer)]"
                         >
                             Checkout
