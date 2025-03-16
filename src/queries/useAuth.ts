@@ -1,5 +1,5 @@
 
-import { loginUser, logoutUser } from "@/services/authService";
+import { loginUser, logoutUser, registerUser } from "@/services/authService";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -13,11 +13,18 @@ export function useAuth() {
             router.push("/");
         },
     });
-
+    const registerMutation = useMutation({
+        mutationFn: registerUser,
+        onSuccess: () => {
+            router.push("/"); 
+        },
+    });
     return {
         login: mutation.mutate,
+        registerUser: registerMutation.mutate,
         isLoading: mutation.isPending,
-        error: mutation.error ? mutation.error.message : null,
+        isRegisterLoading: registerMutation.isPending,
+        error: mutation.error ? mutation.error.message : registerMutation.error?.message || null,
         logout: logoutUser, 
     };
 }
