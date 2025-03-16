@@ -6,12 +6,14 @@ import { CiShoppingCart } from "react-icons/ci";
 import CartDrawer from "./pages/cart/CartDrawer";
 import { useCartStore } from "@/lib/cartStore";
 import { supabase } from "@/config/supabaseClient";
+import { FiLogOut } from "react-icons/fi";
+import { useAuth } from "@/queries/useAuth";
 
 export default function Header() {
     const [open, setOpen] = useState(false);
-
-    const { cart } = useCartStore(); 
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0); 
+    const { logout } = useAuth();
+    const { cart } = useCartStore();
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     const [userEmail, setUserEmail] = useState<string | null>(null);
     useEffect(() => {
@@ -31,6 +33,9 @@ export default function Header() {
             authListener.subscription.unsubscribe();
         };
     }, []);
+    const handleLogout =  () => {
+        logout()
+    };
 
     return (
         <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-40">
@@ -54,16 +59,6 @@ export default function Header() {
                     <Link href="/catering" className="text-black hover:text-pink-300">
                         Alowishus Catering
                     </Link>
-                </nav>
-                <div className="flex items-center space-x-4">
-                {userEmail ? (
-                        <span className="text-sm text-gray-700">Welcome, {userEmail}</span>
-                    ) : (
-                        <Link href="/login" className="text-sm text-blue-500">
-                            Login
-                        </Link>
-                    )}
-
                     <button onClick={() => setOpen(true)} className="relative">
                         <CiShoppingCart className="text-pink-500" size={30} />
                         {totalItems > 0 && (
@@ -72,6 +67,23 @@ export default function Header() {
                             </span>
                         )}
                     </button>
+                </nav>
+
+
+                <div className="flex items-center space-x-4">
+                    {userEmail ? (
+                        <>
+                            <span className="text-sm text-gray-700">Welcome, {userEmail}</span>
+                            <button onClick={handleLogout} className="text-pink-500">
+                                <FiLogOut size={20} />
+                            </button>
+                        </>
+                    ) : (
+                        <Link href="/login" className="text-sm text-blue-500">
+                            Login
+                        </Link>
+                    )}
+
                 </div>
             </div>
 

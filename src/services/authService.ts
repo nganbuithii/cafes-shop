@@ -15,3 +15,6 @@ export async function loginUser(data: LoginFormData) {
     return authData; 
 }
 
+export async function logoutUser() {
+    await supabase.auth.signOut();
+}

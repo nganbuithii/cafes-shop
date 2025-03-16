@@ -1,5 +1,5 @@
 
-import { loginUser } from "@/services/authService";
+import { loginUser, logoutUser } from "@/services/authService";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -18,5 +18,6 @@ export function useAuth() {
         login: mutation.mutate,
         isLoading: mutation.isPending,
         error: mutation.error ? mutation.error.message : null,
+        logout: logoutUser, 
     };
 }
