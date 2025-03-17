@@ -6,10 +6,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "@/validation/auth";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/authStore";
 
 export default function LoginPage() {
     const { login, isLoading, error } = useAuth();
     const router = useRouter();
+    const { user } = useAuthStore()
 
     const {
         register,
@@ -23,6 +25,12 @@ export default function LoginPage() {
         if (isLoading) return;
         login(data, {
             onSuccess: () => {
+                const role = user?.app_metadata?.role;
+                console.log("ROLEEE", role)
+                if (role !== "admin") {
+                    alert("You do not have access!");
+                    return;
+                }
                 router.push("/admin/dashboard");
             },
         });
@@ -43,7 +51,7 @@ export default function LoginPage() {
                     <Button type="submit" className="w-full" disabled={isLoading}>
                         {isLoading ? "Logging in..." : "Login"}
                     </Button>
-                    
+
                     {error && <p className="text-red-500 text-xs">{error}</p>}
                 </form>
             </div>
