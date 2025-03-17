@@ -7,9 +7,12 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@/queries/useAuth";
 import { signinWithGoogle } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
     const { login, isLoading, error } = useAuth();
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -20,7 +23,11 @@ export default function LoginForm() {
 
     const onSubmit = (data: LoginFormData) => {
         if (isLoading) return;
-        login(data);
+        login(data, {
+            onSuccess: () => {
+                router.push("/");
+            },
+        });
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
