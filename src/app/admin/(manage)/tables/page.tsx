@@ -11,12 +11,12 @@ export default function TablesPage() {
 
     return (
         <div className="p-6">
-            <h1 className="text-3xl font-bold mb-6 text-center">Tables Layout</h1>
+            <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">Tables Layout</h1>
 
             {isLoading ? (
                 <div className="grid grid-cols-4 md:grid-cols-6 gap-6">
                     {[...Array(6)].map((_, i) => (
-                        <Skeleton key={i} className="h-28 w-full rounded-xl" />
+                        <Skeleton key={i} className="h-28 w-full rounded-xl bg-gray-200" />
                     ))}
                 </div>
             ) : (
@@ -26,11 +26,11 @@ export default function TablesPage() {
                             {tables.map((table) => (
                                 <Card
                                     key={table.id}
-                                    className={`p-6 text-center shadow-lg transition duration-300 rounded-2xl border-2
+                                    className={`p-6 text-center shadow-md transition duration-300 rounded-2xl border border-gray-400
                                         ${
                                             table.status === "empty"
-                                                ? "bg-green-400 hover:bg-green-500 border-green-600 text-white"
-                                                : "bg-red-400 hover:bg-red-500 border-red-600 text-white"
+                                                ? "bg-white hover:bg-gray-100 text-gray-800"
+                                                : "bg-gray-300 hover:bg-gray-400 text-gray-900"
                                         }`}
                                 >
                                     <CardHeader className="flex flex-col items-center">
@@ -44,8 +44,8 @@ export default function TablesPage() {
                             ))}
 
                             <button
-                                className="p-6 flex items-center justify-center shadow-lg transition duration-300 rounded-2xl border-2
-                                    bg-gray-200 hover:bg-gray-300 text-gray-700 cursor-pointer"
+                                className="p-6 flex items-center justify-center shadow-md transition duration-300 rounded-2xl border border-gray-400
+                                    bg-white hover:bg-gray-100 text-gray-800 cursor-pointer"
                             >
                                 <Plus size={36} />
                             </button>
@@ -58,3 +58,5 @@ export default function TablesPage() {
         </div>
     );
 }
+
+
