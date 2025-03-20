@@ -7,13 +7,14 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import QRCodeTable from "@/components/qrcode-table";
 import { TableType } from "@/components/types/tableType";
+import { getTableLink } from "@/lib/utils";
 interface EditTableProps {
     table: TableType;
     onSave: (updatedTable: TableType) => void;
     onClose: () => void;
-  }
+}
 
-  export const EditTable: React.FC<EditTableProps> = ({ table, onSave, onClose }) => {
+export const EditTable: React.FC<EditTableProps> = ({ table, onSave, onClose }) => {
     const [formData, setFormData] = useState({
         id: table.id,
         status: table.status
@@ -62,8 +63,9 @@ interface EditTableProps {
                             </select>
                         </div>
                         <QRCodeTable
-                        tableNumber={table.id}
-                      />
+                            tableNumber={table.id}
+                        />
+                        <p>{getTableLink({ tableNumber: table.id })}</p>
                         <div className="flex gap-4 pt-4">
                             <Button
                                 type="submit"

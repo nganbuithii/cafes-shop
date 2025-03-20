@@ -16,12 +16,6 @@ export const getTableLink = ({
   // token: string
   tableNumber: number
 }) => {
-  return (
-    process.env.NEXT_PUBLIC_URL +
-    `/tables/` +
-    tableNumber 
-    // +
-    // '?token=' +
-    // token
-  )
+  return `${process.env.NEXT_PUBLIC_URL}/guest/login?table=${tableNumber}`;
+
 }
