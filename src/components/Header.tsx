@@ -36,8 +36,8 @@ export default function Header() {
                     <Link href="/about-us" className="text-black hover:text-pink-300">
                         About Us
                     </Link>
-                    <Link href="/find-us" className="text-black hover:text-pink-300">
-                        Find Us
+                    <Link href="/products" className="text-black hover:text-pink-300">
+                        Products
                     </Link>
                     <Link href="/catering" className="text-black hover:text-pink-300">
                         Alowishus Catering

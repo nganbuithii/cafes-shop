@@ -9,14 +9,14 @@ export default function Footer() {
                         <h3 className="text-2xl font-bold mb-4 text-[var(--color-footer)]">
                             Nanies Coffee
                         </h3>
-                        <p className="text-[#d4d4d4] leading-relaxed">
+                        <p className="text-black leading-relaxed ">
                             Serving the best coffee and pastries since 2025. Visit us for a
                             delightful experience!
                         </p>
                     </div>
 
-                    <div>
-                        <h3 className="text-2xl font-bold mb-4 text-[var(--color-footer)]">
+                    <div className="text-black">
+                        <h3 className="text-2xl font-bold mb-4 ">
                             Contact Us
                         </h3>
                         <p className=" mb-2">Cafe Street, Coffee Town</p>
