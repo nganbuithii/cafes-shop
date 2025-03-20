@@ -14,14 +14,11 @@ import { Product } from "@/components/types/productType";
 import { useProducts } from "@/queries/useProducts";
 import CategoryFilter from "../products/CategoryFilter";
 
-
-const categories = ["All", "Coffee", "Tea", "Smoothie", "Pastry"];
-
 export default function BestSellingCoffee() {
-    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]); // Chuyển thành mảng
     const { addToCart } = useCartStore();
 
-    const { data: coffeeProducts = [], isLoading } = useProducts( selectedCategory);
+    const { data: coffeeProducts = [], isLoading } = useProducts(selectedCategories);
 
     const handleAddToCart = (product: Product) => {
         addToCart({
@@ -41,8 +38,7 @@ export default function BestSellingCoffee() {
                     Enjoy the best selection of our premium coffee blends, crafted to perfection.
                 </p>
             </div>
-            <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
-
+            <CategoryFilter selectedCategories={selectedCategories} onSelectCategories={setSelectedCategories} />
 
             {isLoading ? (
                 <p className="text-center text-gray-600">Loading...</p>

@@ -38,7 +38,7 @@ export function ProductCard({ product, onAddToCart, onBuyNow }: ProductCardProps
             <CardFooter className="p-5 pt-0 flex gap-3">
                 <Button
                     onClick={() => onAddToCart(product)}
-                    className="flex-1 bg-pink-400 hover:bg-transparent text-white rounded-xl py-6 font-semibold flex items-center justify-center gap-2 transition-all duration-300"
+                    className="flex-1 bg-pink-400 hover:bg-pink-300 text-white rounded-xl py-6 font-semibold flex items-center justify-center gap-2 transition-all duration-300"
                 >
                     <ShoppingCart className="w-5 h-5" />
                     Add

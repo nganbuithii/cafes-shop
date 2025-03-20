@@ -5,11 +5,17 @@ import { ProductCard } from "../../../components/pages/products/cart-product";
 import { Product } from "@/components/types/productType";
 import { toast } from "react-toastify";
 import { useProducts } from "@/queries/useProducts";
-
+import { ProductFilter } from "@/components/pages/products/ProductFilter";
+import { useCallback, useState } from "react";
 
 export default function ProductsPage() {
   const { addToCart } = useCartStore();
-  const { data: coffeeProducts = [] } = useProducts("All");
+  const [filters, setFilters] = useState<{ categories: string[]; priceRange: [number, number] }>({
+    categories: [], 
+    priceRange: [0, 100],
+  });
+  
+  const { data: coffeeProducts = []} = useProducts(filters.categories );
 
   const handleAddToCart = (product: Product) => {
     addToCart({
@@ -25,6 +31,9 @@ export default function ProductsPage() {
   const buyNow = (productId: number) => {
     console.log(`Buying product ${productId} now`);
   };
+  const handleFilterChange = useCallback((newFilters: { categories: string[], priceRange: [number, number] }) => {
+    setFilters(newFilters);
+}, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 mt-10 px-4 sm:px-6 lg:px-8">
@@ -36,8 +45,13 @@ export default function ProductsPage() {
           Yummy & delicious & fresh
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {coffeeProducts.map((product) => (
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1">
+            <div className="sticky top-24">
+              <ProductFilter onFilterChange={handleFilterChange} />
+            </div>
+          </div>
+          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">          {coffeeProducts.map((product) => (
             <ProductCard
               key={product.id}
               product={product}
@@ -45,7 +59,10 @@ export default function ProductsPage() {
               onBuyNow={buyNow}
             />
           ))}
+          </div>
         </div>
+
+
       </div>
     </div>
   );
