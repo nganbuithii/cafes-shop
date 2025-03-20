@@ -1,14 +1,37 @@
 'use client'
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useTables } from "@/queries/useTables";
+import { useTables, useUpdateTable } from "@/queries/useTables";
 import { Plus } from "lucide-react";
+import { useState } from "react";
+import { EditTable } from "./edit-table";
+import { toast } from "react-toastify";
+import { TableType } from "@/components/types/tableType";
 
 export default function TablesPage() {
     const { data: tables, isLoading, error } = useTables();
+    const [editingTable, setEditingTable] = useState<TableType | null>(null);
+    const { mutate: updateTableMutation } = useUpdateTable();
 
+    const handleEdit = (table:TableType) => {
+        setEditingTable(table);
+    };
     if (error) console.error("Error fetching tables:", error);
+    const handleSave = (updatedTable: TableType) => {
+        updateTableMutation(updatedTable, {
+            onSuccess: () => {
+                toast.success("Update table success! 🎉");
+                setEditingTable(null);
+            },
+            onError: (error:Error) => {
+                toast.error(`Error: ${error.message}`);
+            },
+        });
+    };
 
+    const handleClose = () => {
+        setEditingTable(null);
+    };
     return (
         <div className="p-6">
             <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">Tables Layout</h1>
@@ -26,6 +49,7 @@ export default function TablesPage() {
                             {tables.map((table) => (
                                 <Card
                                     key={table.id}
+                                    onClick={() => handleEdit(table)}
                                     className={`p-6 text-center shadow-md transition duration-300 rounded-2xl border border-gray-400
                                         ${
                                             table.status === "empty"
@@ -54,6 +78,13 @@ export default function TablesPage() {
                         <p className="text-center col-span-6 text-gray-500">No tables found.</p>
                     )}
                 </div>
+            )}
+            {editingTable && (
+                <EditTable
+                    table={editingTable}
+                    onSave={handleSave}
+                    onClose={handleClose}
+                />
             )}
         </div>
     );

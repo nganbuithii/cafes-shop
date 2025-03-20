@@ -8,3 +8,20 @@ export function cn(...inputs: ClassValue[]) {
 export const calculateTotal = (cartItems: CartItemType[]): number => {
   return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 };
+
+export const getTableLink = ({
+  // token,
+  tableNumber
+}: {
+  // token: string
+  tableNumber: number
+}) => {
+  return (
+    process.env.NEXT_PUBLIC_URL +
+    `/tables/` +
+    tableNumber 
+    // +
+    // '?token=' +
+    // token
+  )
+}
