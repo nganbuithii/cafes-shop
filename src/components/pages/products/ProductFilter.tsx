@@ -12,7 +12,7 @@ const categoryOptions = ["All", "Coffee", "Tea", "Smoothie", "Pastry"];
 
 export function ProductFilter({ onFilterChange }: ProductFilterProps) {
     const [selectedCategories, setSelectedCategories] = useState<string[]>(["All"]);
-    const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
+    const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000]);
 
     const handleCategoryChange = (category: string, checked: boolean) => {
         setSelectedCategories((prev) => {
@@ -34,7 +34,7 @@ export function ProductFilter({ onFilterChange }: ProductFilterProps) {
 
     const resetFilters = () => {
         setSelectedCategories([]);
-        setPriceRange([0, 100]);
+        setPriceRange([0, 100000]);
     };
 
     useEffect(() => {
@@ -80,7 +80,7 @@ export function ProductFilter({ onFilterChange }: ProductFilterProps) {
                     value={priceRange}
                     onValueChange={handlePriceChange}
                     min={0}
-                    max={100}
+                    max={100000}
                     step={1}
                     className="w-full"
                 />

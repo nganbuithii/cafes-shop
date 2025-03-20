@@ -11,12 +11,12 @@ import { useCallback, useState } from "react";
 export default function ProductsPage() {
   const { addToCart } = useCartStore();
   const [filters, setFilters] = useState<{ categories: string[]; priceRange: [number, number] }>({
-    categories: [], 
-    priceRange: [0, 100],
+    categories: [],
+    priceRange: [0, 100000],
   });
-  
-  const { data: coffeeProducts = []} = useProducts(filters.categories );
 
+  const { data: coffeeProducts = [] } = useProducts(filters.categories, filters.priceRange);
+  console.log("filter price", filters.priceRange)
   const handleAddToCart = (product: Product) => {
     addToCart({
       id: product.id,
@@ -33,7 +33,7 @@ export default function ProductsPage() {
   };
   const handleFilterChange = useCallback((newFilters: { categories: string[], priceRange: [number, number] }) => {
     setFilters(newFilters);
-}, []);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 mt-10 px-4 sm:px-6 lg:px-8">
@@ -51,14 +51,23 @@ export default function ProductsPage() {
               <ProductFilter onFilterChange={handleFilterChange} />
             </div>
           </div>
-          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">          {coffeeProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onAddToCart={() => handleAddToCart(product)}
-              onBuyNow={buyNow}
-            />
-          ))}
+          <div className="lg:col-span-3">
+            {coffeeProducts.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                {coffeeProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onAddToCart={() => handleAddToCart(product)}
+                    onBuyNow={buyNow}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-600 text-lg font-medium py-12">
+                No product matching your filters.
+              </div>
+            )}
           </div>
         </div>
 
