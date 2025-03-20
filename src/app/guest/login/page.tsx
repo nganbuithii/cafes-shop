@@ -8,14 +8,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 export default function GuestLogin() {
     const router = useRouter();
     const [name, setName] = useState('');
+    const [error, setError] = useState('');
 
-    const table = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '').get('table');
+    // const table = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '').get('table');
 
     const handleGuestLogin = () => {
-        if (!name.trim()) return alert('Vui lòng nhập tên!');
-
+        if (!name.trim()) {
+            setError('Please enter your name!');
+            return;
+        }
         localStorage.setItem('guestName', name);
-        router.push(`/tables/${table}`);
+        router.push(`/products`);
     };
 
     return (
@@ -32,6 +35,8 @@ export default function GuestLogin() {
                         onChange={(e) => setName(e.target.value)}
                         className="mt-2"
                     />
+                    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+
                     <Button
                         onClick={handleGuestLogin}
                         className="mt-4 w-full">
