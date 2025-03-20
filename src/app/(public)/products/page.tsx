@@ -16,7 +16,6 @@ export default function ProductsPage() {
   });
 
   const { data: coffeeProducts = [] } = useProducts(filters.categories, filters.priceRange);
-  console.log("filter price", filters.priceRange)
   const handleAddToCart = (product: Product) => {
     addToCart({
       id: product.id,
