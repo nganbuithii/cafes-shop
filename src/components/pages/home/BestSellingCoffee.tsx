@@ -12,6 +12,7 @@ import { useCartStore } from "@/store/cartStore";
 import { toast } from "react-toastify";
 import { Product } from "@/components/types/productType";
 import { useProducts } from "@/queries/useProducts";
+import CategoryFilter from "../products/CategoryFilter";
 
 
 const categories = ["All", "Coffee", "Tea", "Smoothie", "Pastry"];
@@ -40,18 +41,8 @@ export default function BestSellingCoffee() {
                     Enjoy the best selection of our premium coffee blends, crafted to perfection.
                 </p>
             </div>
-            <div className="flex justify-center gap-4 mb-8">
-                {categories.map((category) => (
-                    <button
-                        key={category}
-                        className={`px-4 py-2 rounded-md text-sm font-semibold transition-colors ${selectedCategory === category ? "bg-black text-white" : "bg-gray-200 text-gray-800"
-                            }`}
-                        onClick={() => setSelectedCategory(category)}
-                    >
-                        {category}
-                    </button>
-                ))}
-            </div>
+            <CategoryFilter selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
+
 
             {isLoading ? (
                 <p className="text-center text-gray-600">Loading...</p>
