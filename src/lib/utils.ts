@@ -19,3 +19,15 @@ export const getTableLink = ({
   return `${process.env.NEXT_PUBLIC_URL}/guest/login?table=${tableNumber}`;
 
 }
+export function generateRandomPassword(length: number = 12) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+  let password = "";
+  for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      password += chars[randomIndex];
+  }
+  return password;
+}
+export function isGuestEmail(email?: string) {
+  return email?.endsWith("@guest.com") ?? false;
+}

@@ -13,6 +13,7 @@ export function ProductListItem({ product, onAddToCart }: ProductListItemProps) 
             <Image
                 src={product.image_url}
                 alt={product.name}
+                width={100}   height={100}
                 className="w-16 h-16 rounded-lg object-cover"
             />
             <div className="ml-4 flex-1">
@@ -22,7 +23,7 @@ export function ProductListItem({ product, onAddToCart }: ProductListItemProps) 
                     {product.price.toLocaleString()}₫
                 </div>
             </div>
-            <button onClick={onAddToCart} className="text-yellow-500 hover:text-yellow-600">
+            <button onClick={onAddToCart} className="text-pink-500 hover:text-pink-600">
                 <PlusCircle size={24} />
             </button>
         </div>

@@ -9,6 +9,7 @@ import { ProductFilter } from "@/components/pages/products/ProductFilter";
 import { useCallback, useState } from "react";
 import CategoryFilter from "@/components/pages/products/CategoryFilter";
 import { ProductListItem } from "@/components/pages/products/ProductListItem";
+import { CartMobile } from "@/components/pages/cart/CartMobi";
 
 export default function ProductsPage() {
   const { addToCart } = useCartStore();
@@ -93,7 +94,9 @@ export default function ProductsPage() {
               </div>
             )}
           </div>
-
+          <div className="fixed bottom-0 left-0 w-full sm:hidden bg-white border-t shadow-lg p-4">
+      <CartMobile />
+    </div>
         </div>
 
 
