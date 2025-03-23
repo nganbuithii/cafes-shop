@@ -5,20 +5,49 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { useOrders } from "@/queries/useOrders";
 import PaginationControls from "@/components/Pagination";
-
+import { DayPicker } from "react-day-picker";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; 
+import { Button } from "@/components/ui/button"; 
+import { CalendarIcon } from "lucide-react";
+import "react-day-picker/dist/style.css";
 export default function OrdersPage() {
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, isLoading } = useOrders(currentPage);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const { data, isLoading } = useOrders(currentPage, selectedDate);
     const orders = data?.orders || [];
     const totalOrders = data?.total || 0;
 
     const PAGE_SIZE = 5;
     const totalPages = Math.ceil(totalOrders / PAGE_SIZE);
-
+    const [open, setOpen] = useState(false); 
     return (
         <div className="p-6 space-y-6">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Orders Management</h1>
-
+            <div className="flex items-center gap-4">
+                <label className="text-gray-700 font-semibold">Select Date:</label>
+                <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                        <Button
+                            variant="outline"
+                            className="w-[240px] justify-start text-left font-normal"
+                        >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {format(selectedDate, "dd/MM/yyyy")}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                        <DayPicker
+                            mode="single"
+                            selected={selectedDate}
+                            onSelect={(date) => {
+                                setSelectedDate(date || new Date());
+                                setOpen(false);
+                            }}
+                            initialFocus
+                        />
+                    </PopoverContent>
+                </Popover>
+            </div>
             {isLoading ? (
                 <div className="flex justify-center items-center h-64">
                     <p className="text-gray-500 text-lg">Loading orders...</p>
