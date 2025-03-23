@@ -5,11 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { useOrders } from "@/queries/useOrders";
 import PaginationControls from "@/components/Pagination";
-import { DayPicker } from "react-day-picker";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; 
-import { Button } from "@/components/ui/button"; 
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
-import "react-day-picker/dist/style.css";
+import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
 export default function OrdersPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -19,34 +19,38 @@ export default function OrdersPage() {
 
     const PAGE_SIZE = 5;
     const totalPages = Math.ceil(totalOrders / PAGE_SIZE);
-    const [open, setOpen] = useState(false); 
     return (
         <div className="p-6 space-y-6">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Orders Management</h1>
             <div className="flex items-center gap-4">
                 <label className="text-gray-700 font-semibold">Select Date:</label>
-                <Popover open={open} onOpenChange={setOpen}>
+                <Popover>
                     <PopoverTrigger asChild>
                         <Button
-                            variant="outline"
-                            className="w-[240px] justify-start text-left font-normal"
+                            variant={"outline"}
+                            className={cn(
+                                "w-[280px] justify-start text-left font-normal",
+                                !selectedDate && "text-muted-foreground"
+                            )}
                         >
                             <CalendarIcon className="mr-2 h-4 w-4" />
-                            {format(selectedDate, "dd/MM/yyyy")}
+                            {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
                         </Button>
+
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                        <DayPicker
+                    <PopoverContent className="w-auto p-0">
+                        <Calendar
                             mode="single"
                             selected={selectedDate}
-                            onSelect={(date) => {
-                                setSelectedDate(date || new Date());
-                                setOpen(false);
+                            onSelect={(day) => {
+                                if (day) {
+                                    setSelectedDate(day);
+                                }
                             }}
-                            initialFocus
                         />
                     </PopoverContent>
                 </Popover>
+
             </div>
             {isLoading ? (
                 <div className="flex justify-center items-center h-64">
@@ -100,10 +104,10 @@ export default function OrdersPage() {
                                         <Badge
                                             variant="outline"
                                             className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${order.status === "completed"
-                                                    ? "bg-green-100 text-green-700 border-green-300"
-                                                    : order.status === "pending"
-                                                        ? "bg-yellow-100 text-yellow-700 border-yellow-300"
-                                                        : "bg-red-100 text-red-700 border-red-300"
+                                                ? "bg-green-100 text-green-700 border-green-300"
+                                                : order.status === "pending"
+                                                    ? "bg-yellow-100 text-yellow-700 border-yellow-300"
+                                                    : "bg-red-100 text-red-700 border-red-300"
                                                 }`}
                                         >
                                             {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
