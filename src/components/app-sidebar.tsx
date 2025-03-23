@@ -36,6 +36,13 @@ export function AppSidebar() {
                     >
                         Orders
                     </Button>
+                    <Button 
+                        variant="ghost" 
+                        className="w-full bg-amber-50 text-left text-lg py-2"
+                        onClick={() => router.push("/admin/shift-calendar")}
+                    >
+                        Shift Calendar
+                    </Button>
                 </SidebarGroup>
             </SidebarContent>
 

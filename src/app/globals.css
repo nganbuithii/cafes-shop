@@ -159,3 +159,68 @@ span{
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+.fc-button {
+  @apply bg-pink-500 text-white font-semibold rounded-md px-4 py-2 hover:bg-pink-600;
+}
+
+/* Tiêu đề lịch */
+.fc-toolbar-title {
+  @apply text-pink-600 font-bold text-lg;
+}
+
+/* Lịch */
+.fc {
+  @apply bg-white shadow-md rounded-lg p-4;
+}
+.fc-today-button {
+  background-color: #ff69b4 !important; 
+  color: white !important;
+  border: none !important;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.fc-today-button:disabled {
+  background-color: #ffb6c1 !important; 
+  color: white !important;
+  opacity: 0.6;
+}
+.fc-prev-button, .fc-next-button {
+  background-color: #ff69b4 !important; 
+  color: white !important; 
+  border: none !important;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+.fc-prev-button:hover, .fc-next-button:hover {
+  background-color: #ff1493 !important;
+  transform: scale(1.1); 
+}
+
+.fc-prev-button:disabled, .fc-next-button:disabled {
+  background-color: #ffb6c1 !important;
+  opacity: 0.5;
+}
+.fc-dayGridMonth-button, .fc-dayGridWeek-button {
+  background-color: #ff69b4 !important; 
+  color: white !important;
+  border: none !important;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+.fc-dayGridMonth-button:hover, .fc-dayGridWeek-button:hover {
+  background-color: #ff1493 !important; 
+  transform: scale(1.1); 
+}
+
+.fc-dayGridMonth-button.fc-button-active, .fc-dayGridWeek-button.fc-button-active {
+  background-color: #ff1493 !important;
+  border: 2px solid white !important;
+}
