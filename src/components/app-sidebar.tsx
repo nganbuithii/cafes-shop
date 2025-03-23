@@ -29,6 +29,13 @@ export function AppSidebar() {
                     >
                         Tables
                     </Button>
+                    <Button 
+                        variant="ghost" 
+                        className="w-full bg-amber-50 text-left text-lg py-2"
+                        onClick={() => router.push("/admin/orders")}
+                    >
+                        Orders
+                    </Button>
                 </SidebarGroup>
             </SidebarContent>
 

@@ -41,3 +41,4 @@ export async function registerUser(data: RegisterFormData) {
     setUser(authData?.user || null);
     return authData;
 }
+
