@@ -1,15 +1,20 @@
 'use client';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-import { useOrders } from "@/queries/useOrders";
+import { useOrders, useUpdateOrderStatus } from "@/queries/useOrders";
 import PaginationControls from "@/components/Pagination";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
+import { toast } from "react-toastify";
+import { listenToNewOrders } from "@/services/ordersService";
+import { useQueryClient } from "@tanstack/react-query";
+
 export default function OrdersPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -19,6 +24,34 @@ export default function OrdersPage() {
 
     const PAGE_SIZE = 5;
     const totalPages = Math.ceil(totalOrders / PAGE_SIZE);
+    const updateOrderStatusMutation = useUpdateOrderStatus();
+    const queryClient = useQueryClient();
+
+    useEffect(() => {
+        const channel = listenToNewOrders((newOrder) => {
+            toast(`🔔 New Order #${newOrder.id} has been placed!`);
+            queryClient.invalidateQueries({ queryKey: ["orders"] });
+        });
+
+        return () => {
+            channel.unsubscribe();
+        };
+    }, [queryClient]);
+
+    const handleChangeStatus = (orderId: string, newStatus: string) => {
+        updateOrderStatusMutation.mutate(
+            { orderId, newStatus },
+            {
+                onSuccess: () => {
+                    toast.success(`Update status ${newStatus} of order #${orderId} successfully!`);
+                },
+                onError: () => {
+                    toast.error(`Error something when change status ${newStatus} of order #${orderId}!`);
+                },
+            }
+        );
+    };
+
     return (
         <div className="p-6 space-y-6">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Orders Management</h1>
@@ -101,17 +134,19 @@ export default function OrdersPage() {
                                         ${order.total.toFixed(2)}
                                     </TableCell>
                                     <TableCell>
-                                        <Badge
-                                            variant="outline"
-                                            className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${order.status === "completed"
-                                                ? "bg-green-100 text-green-700 border-green-300"
-                                                : order.status === "pending"
-                                                    ? "bg-yellow-100 text-yellow-700 border-yellow-300"
-                                                    : "bg-red-100 text-red-700 border-red-300"
-                                                }`}
+                                        <Select
+                                            defaultValue={order.status}
+                                            onValueChange={(newStatus) => handleChangeStatus(order.id, newStatus)}
                                         >
-                                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                                        </Badge>
+                                            <SelectTrigger className="w-[120px]">
+                                                <SelectValue placeholder="Change status" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="pending">Pending</SelectItem>
+                                                <SelectItem value="cooking">Cooking</SelectItem>
+                                                <SelectItem value="completed">Completed</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </TableCell>
                                     <TableCell className="text-gray-600">
                                         {format(new Date(order.created_at), "dd/MM/yyyy HH:mm")}

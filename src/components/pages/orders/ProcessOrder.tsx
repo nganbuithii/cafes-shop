@@ -1,4 +1,4 @@
-export default function OrderProgress({ currentStep }: { currentStep: number }) {
+export default function OrderProgress({ orderId, currentStep }: { orderId?: number; currentStep: number }) {
     const steps = [
         { name: "Pending", icon: "🛒", description: "Order placed" },
         { name: "Cooking", icon: "🍳", description: "Preparing" },
@@ -6,7 +6,9 @@ export default function OrderProgress({ currentStep }: { currentStep: number }) 
     ];
 
     return (
-        <div className="block md:hidden w-full max-w-2xl mx-auto py-6">
+        <div className="block w-full max-w-2xl mx-auto py-6">
+            <p className="text-center font-semibold text-gray-600">Order ID: {orderId}</p>
+
             <div className="relative flex w-full justify-between">
                 {steps.map((step, index) => (
                     <div key={index} className="relative flex flex-col items-center z-10 w-1/3">
