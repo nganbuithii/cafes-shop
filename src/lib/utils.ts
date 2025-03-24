@@ -31,3 +31,7 @@ export function generateRandomPassword(length: number = 12) {
 export function isGuestEmail(email?: string) {
   return email?.endsWith("@guest.com") ?? false;
 }
+export const getRandomColor = () => {
+  const colors = ["#FFADAD", "#FA3", "#FDF", "#CAFF", "#9BF6FF", "#A0C4FF", "#BDB2FF"];
+  return colors[Math.floor(Math.random() * colors.length)];
+};

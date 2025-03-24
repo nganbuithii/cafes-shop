@@ -8,6 +8,7 @@ import { useShifts } from "@/queries/useShift";
 import { Tooltip } from "react-tooltip";
 import { ShiftEvent } from "@/components/types/shiftType";
 import { ShiftFormDrawer } from "./ShiftFormDrawer";
+import { getRandomColor } from "@/lib/utils";
 
 export default function ShiftCalendar() {
     const { data: shifts, isLoading } = useShifts();
@@ -17,9 +18,9 @@ export default function ShiftCalendar() {
     const events: ShiftEvent[] =
         shifts?.map((shift) => ({
             id: shift.id,
-            title: `${shift.shift_time} (${shift.status})`,
+            title: `${shift.users.email} - ${shift.shift_time} (${shift.status})`,
             start: shift.date,
-            color: shift.status === "approved" ? "green" : "orange",
+            color: getRandomColor(), 
         })) || [];
 
         const handleDateClick = (info: DateClickArg) => {
@@ -43,16 +44,23 @@ export default function ShiftCalendar() {
                 validRange={undefined} 
                 eventContent={(eventInfo) => (
                     <div
-                        className="p-1 rounded-md text-white text-sm"
-                        style={{ backgroundColor: eventInfo.event.backgroundColor }}
-                        data-tooltip-id={eventInfo.event.id}
+                        className="p-1 rounded-md text-black text-xs font-medium"
+                        style={{
+                            backgroundColor: eventInfo.event.backgroundColor,
+                            padding: "2px 5px",
+                            borderRadius: "5px",
+                            fontSize: "0.75rem",
+                            whiteSpace: "normal", 
+                            wordWrap: "break-word",
+                            maxWidth: "100%",
+                        }}
                     >
                         {eventInfo.event.title}
                         <Tooltip id={eventInfo.event.id} place="top">
                             Day: {eventInfo.event.startStr}
                         </Tooltip>
                     </div>
-                )}
+                )}                
                 height="auto"
                 headerToolbar={{
                     left: "prev,next today",
