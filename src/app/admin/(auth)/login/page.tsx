@@ -7,11 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "@/validation/auth";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
     const { login, isLoading, error } = useAuth();
     const router = useRouter();
-    const { user } = useAuthStore()
+    const { user, setUser } = useAuthStore()
 
     const {
         register,
@@ -24,11 +25,12 @@ export default function LoginPage() {
     const onSubmit = (data: LoginFormData) => {
         if (isLoading) return;
         login(data, {
-            onSuccess: () => {
+            onSuccess: (authData) => {
+                setUser(authData?.user || null);
                 const role = user?.app_metadata?.role;
-                console.log("ROLEEE", role)
-                if (role !== "admin") {
-                    alert("You do not have access!");
+                // console.log("ROLEEE", role)
+                if (role !== "admin" && role !== "employee") {
+                    toast.error("You do not have access!");
                     return;
                 }
                 router.push("/admin/dashboard");
