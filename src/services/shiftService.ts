@@ -14,6 +14,10 @@ export async function createShift(user_id: string, date: string, shift_time: str
     if (error) throw error;
     return data;
 }
+export async function updateShiftStatus(id: string, status: string) {
+    const { error } = await supabase.from("shifts").update({ status }).eq("id", id);
+    if (error) throw error;
+}
 
 export async function approveShift(id: string) {
     const { error } = await supabase.from("shifts").update({ status: "approved" }).eq("id", id);

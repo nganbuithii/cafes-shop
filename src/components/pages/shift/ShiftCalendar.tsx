@@ -5,10 +5,10 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import { Card } from "@/components/ui/card";
 import { useShifts } from "@/queries/useShift";
-import { Tooltip } from "react-tooltip";
 import { ShiftEvent } from "@/components/types/shiftType";
 import { ShiftFormDrawer } from "./ShiftFormDrawer";
 import { getRandomColor } from "@/lib/utils";
+import { ShiftStatusPopover } from "./ShiftStatusDropdown";
 
 export default function ShiftCalendar() {
     const { data: shifts, isLoading } = useShifts();
@@ -20,19 +20,20 @@ export default function ShiftCalendar() {
             id: shift.id,
             title: `${shift.users.email} - ${shift.shift_time} (${shift.status})`,
             start: shift.date,
-            color: getRandomColor(), 
+            color: getRandomColor(),
         })) || [];
 
-        const handleDateClick = (info: DateClickArg) => {
-            const today = new Date().toISOString().split("T")[0]; 
-            if (info.dateStr < today) return; 
-        
-            setSelectedDate(info.dateStr);
-            setIsFormOpen(true);
-        };
-        
+    const handleDateClick = (info: DateClickArg) => {
+        const today = new Date().toISOString().split("T")[0];
+        if (info.dateStr < today) return;
+
+        setSelectedDate(info.dateStr);
+        setIsFormOpen(true);
+    };
+
 
     if (isLoading) return <p className="text-center text-gray-500">Loading ...</p>;
+
 
     return (
         <Card className="p-4 shadow-lg rounded-2xl">
@@ -41,26 +42,19 @@ export default function ShiftCalendar() {
                 initialView="dayGridMonth"
                 events={events}
                 dateClick={handleDateClick}
-                validRange={undefined} 
-                eventContent={(eventInfo) => (
-                    <div
-                        className="p-1 rounded-md text-black text-xs font-medium"
-                        style={{
-                            backgroundColor: eventInfo.event.backgroundColor,
-                            padding: "2px 5px",
-                            borderRadius: "5px",
-                            fontSize: "0.75rem",
-                            whiteSpace: "normal", 
-                            wordWrap: "break-word",
-                            maxWidth: "100%",
-                        }}
-                    >
-                        {eventInfo.event.title}
-                        <Tooltip id={eventInfo.event.id} place="top">
-                            Day: {eventInfo.event.startStr}
-                        </Tooltip>
-                    </div>
-                )}                
+                validRange={undefined}
+                eventContent={(eventInfo) => {
+                    const status = eventInfo.event.title.split("(")[1]?.replace(")", "");
+                
+                    return (
+                        <div className="p-1 rounded-md text-white text-xs font-medium flex flex-col gap-1">
+                            <ShiftStatusPopover shiftId={eventInfo.event.id} currentStatus={status} />
+                            <span className="whitespace-normal break-words">{eventInfo.event.title}</span>
+                        </div>
+                    );
+                }}
+            
+
                 height="auto"
                 headerToolbar={{
                     left: "prev,next today",
