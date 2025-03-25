@@ -6,7 +6,7 @@ export const statusToStep: Record<OrderStatusType, number> = {
     cooking: 1,
     completed: 2,
 };
-export type PaymentMethodType = "cod" | "vnpay" | "momo";
+export type PaymentMethodType = "cod" | "stripe" | "momo";
 export type FilterType = "all" | "completed" | "pending" | "cancelled";
 
 export interface OrderType {

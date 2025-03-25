@@ -63,7 +63,7 @@ export default function CartPage() {
         const channel = listenToOrderUpdates((newStatus: OrderStatusType, orderUserId: string, updatedOrderId: string) => {
             if (orderUserId === user?.id) {
                 setOrderStatus(newStatus);
-                setOrderId(updatedOrderId); 
+                setOrderId(updatedOrderId);
                 if (newStatus !== "pending") {
                     toast.info(`Order ${updatedOrderId} status updated to ${newStatus}`);
                 }
@@ -74,7 +74,22 @@ export default function CartPage() {
             supabase.removeChannel(channel);
         };
     }, [user?.id]);
+    // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
+    const handleStripePayment = async () => {
+        try {
+            const res = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ cartItems }),
+            });
+
+            const { url } = await res.json();
+            window.location.href = url;
+        } catch  {
+            toast.error("Payment failed, please try again!");
+        }
+    };
 
     return (
         <div className="max-w-5xl mx-auto mt-10 p-4">
@@ -103,7 +118,7 @@ export default function CartPage() {
                         <DeliveryAddress address={address} setAddress={setAddress} addressError={addressError} />
                         <PaymentMethod paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
                         <button
-                            onClick={handleCheckout}
+                            onClick={paymentMethod === "stripe" ? handleStripePayment : handleCheckout}
                             className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition duration-300"
                         >
                             Proceed to Checkout
