@@ -75,3 +75,16 @@ export function listenToNewOrders(callback: (order: OrderType) => void) {
         })
         .subscribe();
 }
+export const fetchUserOrders = async (userId: string) => {
+    const { data, error } = await supabase
+        .from("orders")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return data;
+};

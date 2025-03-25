@@ -1,4 +1,4 @@
-import { fetchOrders, updateOrderStatus } from "@/services/ordersService";
+import { fetchOrders, fetchUserOrders, updateOrderStatus } from "@/services/ordersService";
 import {  useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useOrders(currentPage: number, selectedDate: Date) {
@@ -17,5 +17,12 @@ export function useUpdateOrderStatus() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["orders"] }); 
         },
+    });
+}
+export function useUserOrders(userId: string) {
+    return useQuery({
+        queryKey: ["userOrders", userId],
+        queryFn: () => fetchUserOrders(userId),
+        enabled: !!userId, 
     });
 }

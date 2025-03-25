@@ -39,8 +39,8 @@ export default function Header() {
                     <Link href="/products" className="text-black hover:text-pink-300">
                         Products
                     </Link>
-                    <Link href="/catering" className="text-black hover:text-pink-300">
-                        Alowishus Catering
+                    <Link href="/history-order" className="text-black hover:text-pink-300">
+                        History order
                     </Link>
                     <button onClick={() => setOpen(true)} className="relative">
                         <CiShoppingCart className="text-pink-500" size={30} />
