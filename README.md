@@ -1,5 +1,30 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+🎛 Admin Account
+
+Email: nganbui@admin.com
+
+Password: 123456
+
+💳 Stripe Test Cards
+Bạn có thể sử dụng các thông tin sau để kiểm tra thanh toán qua Stripe trong môi trường thử nghiệm:
+
+🔹 Visa (Success)
+Card Number: 4242 4242 4242 4242
+
+Expiration Date: Bất kỳ ngày hợp lệ (VD: 12/34)
+
+CVC: 123
+
+🔹 MasterCard (Success)
+Card Number: 5555 5555 5555 4444
+
+Expiration Date: Bất kỳ ngày hợp lệ (VD: 12/34)
+
+CVC: 123
+
+📧 Contact for Testing
+Test Email: nganbui.23112003@gmail.com
 ## Getting Started
 
 First, run the development server:
