@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 export default function LoginPage() {
     const { login, isLoading, error } = useAuth();
     const router = useRouter();
-    const { user, setUser } = useAuthStore()
+    const {  setUser } = useAuthStore()
 
     const {
         register,
@@ -26,9 +26,10 @@ export default function LoginPage() {
         if (isLoading) return;
         login(data, {
             onSuccess: (authData) => {
-                setUser(authData?.user || null);
-                const role = user?.app_metadata?.role;
-                // console.log("ROLEEE", role)
+                setUser(authData?.user);
+
+            const role = authData?.user?.app_metadata?.role;
+            // console.log("ROLEEE", role); 
                 if (role !== "admin" && role !== "employee") {
                     toast.error("You do not have access!");
                     return;

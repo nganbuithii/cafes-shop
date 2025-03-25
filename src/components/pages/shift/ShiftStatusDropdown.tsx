@@ -20,7 +20,8 @@ export function ShiftStatusPopover({ shiftId, currentStatus }: { shiftId: string
                     toast.success(`Changed status shift ID ${shiftId} to ${newStatus}`);
                     setIsOpen(false);
                 },
-                onError: () => {
+                onError: (error) => {
+                    console.error("Update Shift Status Error:", error);
                     toast.error(`ERROR: Failed to change shift ID ${shiftId} to ${newStatus}`);
                 },
                 onSettled: () => setLoading(false),

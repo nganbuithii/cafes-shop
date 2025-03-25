@@ -7,20 +7,23 @@ import { Card } from "@/components/ui/card";
 import { useShifts } from "@/queries/useShift";
 import { ShiftEvent } from "@/components/types/shiftType";
 import { ShiftFormDrawer } from "./ShiftFormDrawer";
-import { getRandomColor } from "@/lib/utils";
+import { getEventColor } from "@/lib/utils";
 import { ShiftStatusPopover } from "./ShiftStatusDropdown";
+import { useAuthStore } from "@/store/authStore";
 
 export default function ShiftCalendar() {
     const { data: shifts, isLoading } = useShifts();
+    const { user } = useAuthStore()
+    const isAdmin = user?.app_metadata?.role === "admin";
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
-
+    
     const events: ShiftEvent[] =
         shifts?.map((shift) => ({
             id: shift.id,
             title: `${shift.users.email} - ${shift.shift_time} (${shift.status})`,
             start: shift.date,
-            color: getRandomColor(),
+            color: getEventColor(shift.status),
         })) || [];
 
     const handleDateClick = (info: DateClickArg) => {
@@ -45,15 +48,17 @@ export default function ShiftCalendar() {
                 validRange={undefined}
                 eventContent={(eventInfo) => {
                     const status = eventInfo.event.title.split("(")[1]?.replace(")", "");
-                
+
                     return (
                         <div className="p-1 rounded-md text-white text-xs font-medium flex flex-col gap-1">
-                            <ShiftStatusPopover shiftId={eventInfo.event.id} currentStatus={status} />
+                            {isAdmin && (
+                                <ShiftStatusPopover shiftId={eventInfo.event.id} currentStatus={status} />
+                            )}
                             <span className="whitespace-normal break-words">{eventInfo.event.title}</span>
                         </div>
                     );
                 }}
-            
+
 
                 height="auto"
                 headerToolbar={{
