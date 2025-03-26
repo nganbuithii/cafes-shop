@@ -11,13 +11,14 @@ import { Product } from "@/components/types/productType";
 interface ProductCardProps {
     product: Product;
     onAddToCart: (product: Product) => void;
-    onBuyNow: (id: number) => void;
+    onBuyNow: (product: Product) => void;
+    onClick: () => void; 
 }
 
-export function ProductCard({ product, onAddToCart, onBuyNow }: ProductCardProps) {
+export function ProductCard({ product, onAddToCart, onBuyNow , onClick}: ProductCardProps) {
     return (
         <Card
-            className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-1"
+            className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-1" onClick={onClick}
         >
             <CardHeader className="p-0">
                 <div className="relative h-72 w-full overflow-hidden bg-gray-50">
@@ -44,7 +45,7 @@ export function ProductCard({ product, onAddToCart, onBuyNow }: ProductCardProps
                     Add
                 </Button>
                 <Button
-                    onClick={() => onBuyNow(product.id)}
+                    onClick={() => onBuyNow(product)}
                     className="flex-1 bg-white text-black border-pink-400 hover:bg-transparent border rounded-xl py-6 font-semibold flex items-center justify-center gap-2 transition-all duration-300"
                 >
                     <Zap className="w-5 h-5" />

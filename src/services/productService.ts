@@ -25,3 +25,16 @@ export const fetchProducts = async (categories?: string[], priceRange?: [number,
 
     return data || [];
 };
+export const fetchProductDetail = async (id: number): Promise<Product> => {
+    const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error || !data) {
+        throw new Error("Failed to fetch product detail or product not found");
+    }
+
+    return data;
+};

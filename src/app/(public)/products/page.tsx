@@ -10,6 +10,8 @@ import { useCallback, useState } from "react";
 import CategoryFilter from "@/components/pages/products/CategoryFilter";
 import { ProductListItem } from "@/components/pages/products/ProductListItem";
 import { CartMobile } from "@/components/pages/cart/CartMobi";
+import { useRouter } from "next/navigation";
+import { generateSlug } from "@/lib/utils";
 
 export default function ProductsPage() {
   const { addToCart } = useCartStore();
@@ -17,7 +19,7 @@ export default function ProductsPage() {
     categories: [],
     priceRange: [0, 100000],
   });
-
+  const router = useRouter();
   const { data: coffeeProducts = [], isLoading } = useProducts(filters.categories, filters.priceRange);
   const handleAddToCart = (product: Product) => {
     addToCart({
@@ -30,12 +32,19 @@ export default function ProductsPage() {
     toast("Add to cart success!")
   };
 
-  const buyNow = (productId: number) => {
-    console.log(`Buying product ${productId} now`);
+  const buyNow = (product: Product) =>  {
+    handleAddToCart(product);
+    router.push("/cart");
   };
   const handleFilterChange = useCallback((newFilters: { categories: string[], priceRange: [number, number] }) => {
     setFilters(newFilters);
   }, []);
+  const handleProductClick = (product: Product) => {
+    const slug = generateSlug(product.name);
+    router.push(`/products/${slug}-${product.id}`);
+  };
+  
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 mt-10 px-4 sm:px-6 lg:px-8">
@@ -84,6 +93,7 @@ export default function ProductsPage() {
                       product={product}
                       onAddToCart={() => handleAddToCart(product)}
                       onBuyNow={buyNow}
+                      onClick={() => handleProductClick(product)}
                     />
                   ))}
                 </div>

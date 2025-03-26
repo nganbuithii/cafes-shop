@@ -23,8 +23,8 @@ export function generateRandomPassword(length: number = 12) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
   let password = "";
   for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * chars.length);
-      password += chars[randomIndex];
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    password += chars[randomIndex];
   }
   return password;
 }
@@ -33,13 +33,19 @@ export function isGuestEmail(email?: string) {
 }
 export const getEventColor = (status: string) => {
   switch (status.toLowerCase()) {
-      case "pending":
-          return "#fef08a"; 
-      case "approved":
-          return "#86efac";
-      case "rejected":
-          return "#fca5a5"; 
-      default:
-          return "#a5f3fc";
+    case "pending":
+      return "#fef08a";
+    case "approved":
+      return "#86efac";
+    case "rejected":
+      return "#fca5a5";
+    default:
+      return "#a5f3fc";
   }
+};
+export const generateSlug = (name: string) => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 };
