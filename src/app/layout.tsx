@@ -3,6 +3,7 @@ import "./globals.css";
 import 'animate.css';
 import { Playfair_Display, Poppins } from "next/font/google";
 import AppProvider from "@/components/app-provider";
+import AIChatbotPopup from "@/components/AIChatbot";
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "700"] });
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "600"] });
@@ -23,6 +24,7 @@ export default function RootLayout({
       >
         <AppProvider>
           {children}
+          <AIChatbotPopup />
         </AppProvider>
       </body>
     </html>
