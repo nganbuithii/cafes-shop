@@ -42,6 +42,9 @@ export default function Header() {
                     <Link href="/history-order" className="text-black hover:text-pink-300">
                         History order
                     </Link>
+                    <Link href="/map" className="text-black hover:text-pink-300">
+                        Find us
+                    </Link>
                     <button onClick={() => setOpen(true)} className="relative">
                         <CiShoppingCart className="text-pink-500" size={30} />
                         {totalItems > 0 && (
