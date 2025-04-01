@@ -30,7 +30,7 @@ export default function ExploreSection() {
     return (
         <section ref={sectionRef} className="container mx-auto px-6 py-16">
             <div className={`text-center mb-12 ${isVisible ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
-                <h2 className="text-4xl font-bold text-gray-900 mb-3">Explore Our Alowishus</h2>
+                <h2 className="text-4xl font-bold text-gray-900  mb-3">Explore Our Alowishus</h2>
                 <p className="max-w-2xl mx-auto text-gray-600">
                     Discover our delicious catering services, fresh food options, and tasty gelato.
                 </p>

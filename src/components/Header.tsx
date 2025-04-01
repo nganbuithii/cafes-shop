@@ -8,6 +8,7 @@ import { useCartStore } from "@/store/cartStore";
 import { FiLogOut } from "react-icons/fi";
 import { useAuth } from "@/queries/useAuth";
 import { useAuthStore } from "@/store/authStore";
+import DarkModeToggle from "./dark-mode-toggle";
 
 export default function Header() {
     const [open, setOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function Header() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const { user } = useAuthStore();
 
-    const handleLogout =  () => {
+    const handleLogout = () => {
         logout()
     };
 
@@ -30,9 +31,9 @@ export default function Header() {
                 </Link>
 
                 <nav className="hidden md:flex space-x-8">
-                    <Link href="/cafe-menu" className="text-black hover:text-pink-300">
+                    {/* <Link href="/cafe-menu" className="text-black hover:text-pink-300">
                         Cafe Menu
-                    </Link>
+                    </Link> */}
                     <Link href="/about-us" className="text-black hover:text-pink-300">
                         About Us
                     </Link>
@@ -45,6 +46,10 @@ export default function Header() {
                     <Link href="/map" className="text-black hover:text-pink-300">
                         Find us
                     </Link>
+                    <div className="text-black ml-auto shadow-orange-200">
+                        <DarkModeToggle />
+                    </div>
+
                     <button onClick={() => setOpen(true)} className="relative">
                         <CiShoppingCart className="text-pink-500" size={30} />
                         {totalItems > 0 && (

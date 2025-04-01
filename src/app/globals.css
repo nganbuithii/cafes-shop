@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
@@ -87,11 +88,17 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display", serif; 
 }
-a,h1,h2,h3{
-  color: black
+h1{
+  color: #f33363
 }
-span{
-  color: #0a0a0a;
+a{
+  color:black
+}
+h2,h3{
+  color:#FF6666
+}
+.dark h1, .dark h2, .dark h3 {
+  color: red;
 }
 
 .dark {

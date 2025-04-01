@@ -25,12 +25,12 @@ const HistoryOrder = () => {
     if (isLoading) return <LoadingSpinner />;
     if (error) return <ErrorDisplay error={error} />;
     return (
-        <div className="min-h-screen bg-coffee-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-coffee-50 dark:bg-black  py-14 px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-xl shadow-lg overflow-hidden"
+                    className="bg-white dark:bg-black rounded-xl shadow-lg overflow-hidden"
                 >
                     <div className="p-6 bg-gradient-to-r from-coffee-600 to-coffee-400 text-white">
                         <h2 className="text-2xl md:text-3xl font-bold">Order History</h2>

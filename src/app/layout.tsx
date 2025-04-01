@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.className} ${poppins.className}`} suppressHydrationWarning>
 
-      <body suppressHydrationWarning
+      <body suppressHydrationWarning className="bg-white dark:bg-black"
       >
         <AppProvider>
           {children}

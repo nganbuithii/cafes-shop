@@ -7,7 +7,7 @@ export default function AboutUsPage() {
         <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white text-gray-800">
             <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
                 <div className="max-w-7xl mx-auto text-center animate__animated animate__fadeIn animate__delay-1s">
-                    <h1 className="text-5xl md:text-6xl font-extrabold text-pink-600 mb-6 tracking-tight animate__animated animate__bounceInDown">
+                    <h1 className="text-5xl md:text-6xl font-extrabold !text-pink-600 mb-6 tracking-tight animate__animated animate__bounceInDown">
                         About Us - Pink Coffee
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 animate__animated animate__fadeInUp animate__delay-2s">
@@ -19,7 +19,7 @@ export default function AboutUsPage() {
                 </div>
             </section>
 
-            <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+            <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white  dark:bg-black">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div className="animate__animated animate__fadeInLeft animate__delay-1s">
                         <h2 className="text-4xl font-bold text-pink-500 mb-6">Our Story</h2>

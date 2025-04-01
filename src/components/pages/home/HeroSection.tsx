@@ -7,7 +7,7 @@ export default function HeroSection() {
     return (
         <section className="container mx-auto px-6 py-10 md:py-24 flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-10 md:mb-0 animate__animated animate__bounceInLeft">
-                <h1 className="text-5xl text-[var(--color-footer)] md:text-6xl font-bold leading-tight mb-6">
+            <h1 className="text-5xl  md:text-6xl font-bold leading-tight mb-6 ">
                     Nanies
                     Deliciious
                     <span className="px-3">Coffee</span>
