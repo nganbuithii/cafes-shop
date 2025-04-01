@@ -5,7 +5,7 @@ export const fetchProducts = async (categories?: string[], priceRange?: [number,
 
     let query = supabase
         .from("products")
-        .select("id, name, description, price, image_url, category")
+        .select("*")
         .order("price", { ascending: false })
 
     if (categories && categories.length > 0 && !categories.includes("All")) {

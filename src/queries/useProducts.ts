@@ -5,6 +5,7 @@ export function useProducts(categories?: string[], priceRange?: [number, number]
     return useQuery({
         queryKey: ["products", categories, priceRange], 
         queryFn: () => fetchProducts(categories, priceRange),
+        staleTime: 1000 * 60 * 5, 
         
     });
 }

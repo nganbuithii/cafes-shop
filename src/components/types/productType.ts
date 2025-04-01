@@ -4,6 +4,9 @@
 //     description?: string;
 //     price: number;
 //     image_url: string;
+
+import { ReactNode } from "react";
+
 // }
 export interface Product {
     id: number;
@@ -25,7 +28,7 @@ export interface Product {
     noBitter: boolean;
   }
   
-  export interface Message {
+export type Message = {
     sender: "user" | "bot";
-    text: string;
-  }
+    text: string | ReactNode; 
+};
