@@ -46,11 +46,16 @@ export default function BestSellingCoffee() {
                 <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
                     spaceBetween={30}
-                    slidesPerView={3}
+                    slidesPerView={1}
+                    breakpoints={{
+                        768: {
+                            slidesPerView: 3, 
+                        },
+                    }}
                     navigation
                     pagination={{ clickable: true }}
-                    slidesPerGroup={3}
-                    autoplay={{ delay: 3000, disableOnInteraction: false }} 
+                    slidesPerGroup={1} 
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
                 >
                     {coffeeProducts.map((product, index) => (
                         <SwiperSlide key={`${product.id}-${index}`}>
@@ -68,7 +73,7 @@ export default function BestSellingCoffee() {
                                     <Button className="text-black border-2 bg-border">Buy now</Button>
                                     <Button
                                         className="text-white bg-[var(--color-footer)]"
-                                        onClick={() => handleAddToCart(product)} 
+                                        onClick={() => handleAddToCart(product)}
                                     >
                                         Add Cart
                                     </Button>
