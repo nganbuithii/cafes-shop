@@ -1,7 +1,6 @@
 "use client";
 
 import { useCartStore } from "@/store/cartStore";
-import { ProductCard } from "../../../components/pages/products/cart-product";
 import { Product } from "@/components/types/productType";
 import { toast } from "react-toastify";
 import { useProducts } from "@/queries/useProducts";
@@ -12,6 +11,7 @@ import { ProductListItem } from "@/components/pages/products/ProductListItem";
 import { CartMobile } from "@/components/pages/cart/CartMobi";
 import { useRouter } from "next/navigation";
 import { generateSlug } from "@/lib/utils";
+import { ProductCard } from "@/components/pages/products/cart-product";
 
 export default function ProductsPage() {
   const { addToCart } = useCartStore();

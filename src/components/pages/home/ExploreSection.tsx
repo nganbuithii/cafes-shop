@@ -4,11 +4,12 @@ import { useEffect, useState, useRef } from "react";
 import { Utensils, Soup, IceCream } from "lucide-react";
 import Link from "next/link";
 import "animate.css";
+import { useTranslations } from "next-intl";
 
 export default function ExploreSection() {
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
-
+    const t = useTranslations("explore");
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -30,37 +31,37 @@ export default function ExploreSection() {
     return (
         <section ref={sectionRef} className="container mx-auto px-6 py-16">
             <div className={`text-center mb-12 ${isVisible ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
-                <h2 className="text-4xl font-bold text-gray-900  mb-3">Explore Our Alowishus</h2>
+                <h2 className="text-4xl font-bold text-gray-900  mb-3">{t("title")}</h2>
                 <p className="max-w-2xl mx-auto text-gray-600">
-                    Discover our delicious catering services, fresh food options, and tasty gelato.
+                    {t("description")}
                 </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <Card
-                    title="Our Catering"
-                    description="Enjoy our high-quality catering services for events and gatherings."
+                    title={t("catering")}
+                    description={t("catering_desc")}
                     icon={<Utensils className="w-16 h-16 text-gray-700" />}
                     link="/catering"
-                    linkText="Order Catering"
+                    linkText={t("order_catering")}
                     isVisible={isVisible}
                 />
 
                 <Card
-                    title="The Food"
-                    description="Delicious and freshly prepared meals for every occasion."
+                    title={t("food")}
+                    description={t("food_desc")}
                     icon={<Soup className="w-16 h-16 text-gray-700" />}
                     link="/menu"
-                    linkText="Food Menu"
+                    linkText={t("order_catering")}
                     isVisible={isVisible}
                 />
 
                 <Card
-                    title="The Gelato"
-                    description="Indulge in our handcrafted gelato with a variety of flavors."
+                    title={t("gelato")}
+                    description={t("gelato_desc")}
                     icon={<IceCream className="w-16 h-16 text-gray-700" />}
                     link="/gelato"
-                    linkText="Discover More"
+                    linkText={t("discover_more")}
                     isVisible={isVisible}
                 />
             </div>
@@ -80,9 +81,8 @@ interface CardProps {
 function Card({ title, description, icon, link, linkText, isVisible }: CardProps) {
     return (
         <div
-            className={`bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center transition-transform duration-200 hover:shadow-lg hover:-translate-y-1 ${
-                isVisible ? "animate__animated animate__zoomIn" : "opacity-0"
-            }`}
+            className={`bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center transition-transform duration-200 hover:shadow-lg hover:-translate-y-1 ${isVisible ? "animate__animated animate__zoomIn" : "opacity-0"
+                }`}
         >
             <div className="mb-5">{icon}</div>
             <h3 className="text-2xl font-semibold text-gray-900 mb-3">{title}</h3>

@@ -1,0 +1,58 @@
+{
+    "menu": {
+        "title": "Menu",
+        "coffee": "Coffee",
+        "tea": "Tea",
+        "cake": "Cake"
+    },
+    "cart": {
+        "add": "Add to cart",
+        "total": "Total"
+    },
+    "switch_language": {
+        "title": "Change Language",
+        "en": "English",
+        "vi": "Vietnamese"
+    },
+    "header": {
+        "home": "Home",
+        "about": "About Us",
+        "products": "Products",
+        "history": "History Order",
+        "find_us": "Find Us",
+        "welcome": "Welcome",
+        "login": "Login"
+    },
+    "hero_section": {
+        "title": "Nanies Delicious",
+        "highlight": "Coffee",
+        "award_alt": "Cafe Award Badge",
+        "description": "Enjoy the finest coffee with a rich aroma and exquisite taste.",
+        "explore": "Explore Shop",
+        "coffee_alt": "Alowishus Coffee Cup"
+    },
+    "explore": {
+        "title": "Explore Our Alowishus",
+        "description": "Discover our delicious catering services, fresh food options, and tasty gelato.",
+        "catering": "Our Catering",
+        "catering_desc": "Enjoy our high-quality catering services for events and gatherings.",
+        "food": "The Food",
+        "food_desc": "Delicious and freshly prepared meals for every occasion.",
+        "gelato": "The Gelato",
+        "gelato_desc": "Indulge in our handcrafted gelato with a variety of flavors.",
+        "order_catering": "Order Catering",
+        "food_menu": "Food Menu",
+        "discover_more": "Discover More"
+    },
+    
+        "bestSellingCoffee": {
+            "title": "Best Selling Coffee",
+            "description": "Enjoy the best selection of our premium coffee blends, crafted to perfection.",
+            "loading": "Loading...",
+            "addToCartSuccess": "Added to cart successfully!",
+            "buyNow": "Buy now",
+            "addToCart": "Add to Cart"
+        }
+    
+    
+}

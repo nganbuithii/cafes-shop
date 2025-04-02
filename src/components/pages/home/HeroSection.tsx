@@ -1,16 +1,17 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function HeroSection() {
+    const t = useTranslations("hero_section");
     return (
         <section className="container mx-auto px-6 py-10 md:py-24 flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-10 md:mb-0 animate__animated animate__bounceInLeft">
-            <h1 className="text-5xl  md:text-6xl font-bold leading-tight mb-6 ">
-                    Nanies
-                    Deliciious
-                    <span className="px-3">Coffee</span>
+                <h1 className="text-5xl  md:text-6xl font-bold leading-tight mb-6 ">
+                    {t("title")}
+                    <span className="px-3">{t("highlight")}</span>
                 </h1>
 
                 <div className="mb-6">
@@ -24,8 +25,7 @@ export default function HeroSection() {
                 </div>
 
                 <p className="text-gray-600 mb-8">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi, quae placeat. Corrupti, omnis
-                    id a consequatur eius saepe quia dignissimos.
+                    {t("description")}
                 </p>
 
                 <div className="flex flex-wrap gap-4">
@@ -33,7 +33,7 @@ export default function HeroSection() {
                         href="/shop"
                         className="bg-white hover:bg-gray-100 text-black px-8 py-3 rounded-md border border-gray-300 font-medium transition-colors"
                     >
-                        Explore Shop
+                        {t("explore")}
                     </Link>
                 </div>
             </div>

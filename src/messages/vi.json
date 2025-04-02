@@ -1,0 +1,55 @@
+{
+    "menu": {
+        "title": "Thực đơn",
+        "coffee": "Cà phê",
+        "tea": "Trà",
+        "cake": "Bánh ngọt"
+    },
+    "cart": {
+        "add": "Thêm vào giỏ hàng",
+        "total": "Tổng cộng"
+    },
+    "switch_language": {
+        "title": "Đổi ngôn ngữ",
+        "en": "Tiếng Anh",
+        "vi": "Tiếng Việt"
+    },
+    "header": {
+        "home": "Trang chủ",
+        "about": "Về chúng tôi",
+        "products": "Sản phẩm",
+        "history": "Lịch sử đặt hàng",
+        "find_us": "Tìm chúng tôi",
+        "welcome": "Chào mừng",
+        "login": "Đăng nhập"
+    },
+    "hero_section": {
+        "title": "Cà phê Nanies",
+        "highlight": "Ngon tuyệt",
+        "award_alt": "Huy hiệu Giải thưởng Cafe",
+        "description": "Thưởng thức cà phê ngon nhất với hương thơm đậm đà và hương vị tinh tế.",
+        "explore": "Khám phá cửa hàng",
+        "coffee_alt": "Ly cà phê Alowishus"
+    },
+    "explore": {
+        "title": "Khám phá Alowishus",
+        "description": "Khám phá dịch vụ ăn uống hấp dẫn, món ăn tươi ngon và kem gelato tuyệt hảo.",
+        "catering": "Dịch vụ Ăn uống",
+        "catering_desc": "Thưởng thức dịch vụ ăn uống chất lượng cao cho sự kiện và hội họp.",
+        "food": "Thực phẩm",
+        "food_desc": "Món ăn ngon và tươi chuẩn bị cho mọi dịp.",
+        "gelato": "Kem Gelato",
+        "gelato_desc": "Thưởng thức kem gelato thủ công với nhiều hương vị.",
+        "order_catering": "Đặt dịch vụ ăn uống",
+        "food_menu": "Thực đơn",
+        "discover_more": "Khám phá thêm"
+    },
+    "bestSellingCoffee": {
+        "title": "Cà Phê Bán Chạy Nhất",
+        "description": "Thưởng thức những loại cà phê cao cấp được pha chế hoàn hảo.",
+        "loading": "Đang tải...",
+        "addToCartSuccess": "Đã thêm vào giỏ hàng thành công!",
+        "buyNow": "Mua ngay",
+        "addToCart": "Thêm vào giỏ hàng"
+    }
+}

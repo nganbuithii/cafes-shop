@@ -13,11 +13,12 @@ import { toast } from "react-toastify";
 import { Product } from "@/components/types/productType";
 import { useProducts } from "@/queries/useProducts";
 import CategoryFilter from "../products/CategoryFilter";
+import { useTranslations } from "next-intl";
 
 export default function BestSellingCoffee() {
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]); // Chuyển thành mảng
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const { addToCart } = useCartStore();
-
+    const t = useTranslations("bestSellingCoffee");
     const { data: coffeeProducts = [], isLoading } = useProducts(selectedCategories);
 
     const handleAddToCart = (product: Product) => {
@@ -33,9 +34,9 @@ export default function BestSellingCoffee() {
     return (
         <section className="container mx-auto px-6 py-16">
             <div className="text-center mb-10">
-                <h2 className="text-4xl font-bold text-gray-800 mb-4">Best Selling Coffee</h2>
+                <h2 className="text-4xl font-bold text-gray-800 mb-4">{t("title")}</h2>
                 <p className="max-w-2xl mx-auto text-gray-600">
-                    Enjoy the best selection of our premium coffee blends, crafted to perfection.
+                    {t("description")}
                 </p>
             </div>
             <CategoryFilter selectedCategories={selectedCategories} onSelectCategories={setSelectedCategories} />
@@ -49,12 +50,12 @@ export default function BestSellingCoffee() {
                     slidesPerView={1}
                     breakpoints={{
                         768: {
-                            slidesPerView: 3, 
+                            slidesPerView: 3,
                         },
                     }}
                     navigation
                     pagination={{ clickable: true }}
-                    slidesPerGroup={1} 
+                    slidesPerGroup={1}
                     autoplay={{ delay: 3000, disableOnInteraction: false }}
                 >
                     {coffeeProducts.map((product, index) => (
@@ -70,12 +71,12 @@ export default function BestSellingCoffee() {
                                 <p className="text-gray-600 text-center mb-6">{product.description}</p>
                                 <span className="text-2xl font-bold text-gray-800">${product.price}</span>
                                 <div className=" w-full flex justify-evenly gap-2  mt-4">
-                                    <Button className="text-black border-2 bg-border">Buy now</Button>
+                                    <Button className="text-black border-2 bg-border">{t("buyNow")}</Button>
                                     <Button
                                         className="text-white bg-[var(--color-footer)]"
                                         onClick={() => handleAddToCart(product)}
                                     >
-                                        Add Cart
+                                        {t("addToCart")}
                                     </Button>
 
                                 </div>
