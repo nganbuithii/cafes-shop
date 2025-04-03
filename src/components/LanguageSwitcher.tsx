@@ -36,15 +36,15 @@ function LocaleSwitcherSelectComp() {
                     router.replace(fullUrl);
                 }}
             >
-                <SelectTrigger className="w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm bg-white hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                    <SelectValue placeholder={t("title")} className="text-gray-700 font-medium" />
+                <SelectTrigger className="w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm bg-white hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-black transition-all duration-300">
+                    <SelectValue placeholder={t("title")} className="font-medium" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border border-gray-200 rounded-lg shadow-lg py-2">
                     {locales.map((locale) => (
                         <SelectItem 
                             key={locale} 
                             value={locale} 
-                            className="px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300"
+                            className="px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition-all duration-300 dark:text-black"
                         >
                             {t(locale)}
                         </SelectItem>
