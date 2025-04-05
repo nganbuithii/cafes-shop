@@ -14,9 +14,11 @@ import { Product } from "@/components/types/productType";
 import { useProducts } from "@/queries/useProducts";
 import CategoryFilter from "../products/CategoryFilter";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 export default function BestSellingCoffee() {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const router = useRouter();
     const { addToCart } = useCartStore();
     const t = useTranslations("bestSellingCoffee");
     const { data: coffeeProducts = [], isLoading } = useProducts(selectedCategories);
@@ -31,6 +33,10 @@ export default function BestSellingCoffee() {
         });
         toast("Add to cart success!")
     };
+    const buyNow = (product: Product) =>  {
+        handleAddToCart(product);
+        router.push("/cart");
+      };
     return (
         <section className="container mx-auto px-6 py-16">
             <div className="text-center mb-10">
@@ -70,7 +76,7 @@ export default function BestSellingCoffee() {
                                 <p className="text-gray-600 dark:text-gray-300 text-center mb-6">{product.description}</p>
                                 <span className="text-2xl font-bold text-gray-800 dark:text-gray-100">${product.price}</span>
                                 <div className="w-full flex justify-evenly gap-2 mt-4">
-                                    <Button className="text-black dark:text-white border-2 bg-border dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600">{t("buyNow")}</Button>
+                                    <Button className="text-black dark:text-white border-2 bg-border dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => buyNow(product)}>{t("buyNow")}</Button>
                                     <Button
                                         className="text-white bg-[var(--color-footer)] dark:bg-amber-600 hover:bg-amber-700 dark:hover:bg-amber-700"
                                         onClick={() => handleAddToCart(product)}

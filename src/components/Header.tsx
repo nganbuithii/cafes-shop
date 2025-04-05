@@ -66,10 +66,10 @@ export default function Header() {
                     <div className="py-2 mt-2 md:inline">
                         <LanguageSwitcher />
                     </div>
-                    <button onClick={() => setOpen(true)} className="relative md:inline block py-2">
+                    <button onClick={() => setOpen(true)} className="relative inline-flex items-center justify-center md:inline block py-2">
                         <CiShoppingCart className="text-pink-500 dark:text-pink-400" size={30} />
                         {totalItems > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-yellow-200 dark:bg-yellow-300 text-gray-800 text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                            <span className="absolute top-1 -right-1 bg-yellow-200 dark:bg-yellow-300 text-gray-800 text-xs font-bold min-w-[20px] h-5 flex items-center justify-center rounded-full px-1">
                                 {totalItems}
                             </span>
                         )}
