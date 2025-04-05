@@ -34,15 +34,15 @@ export default function BestSellingCoffee() {
     return (
         <section className="container mx-auto px-6 py-16">
             <div className="text-center mb-10">
-                <h2 className="text-4xl font-bold text-gray-800 mb-4">{t("title")}</h2>
-                <p className="max-w-2xl mx-auto text-gray-600">
+                <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">{t("title")}</h2>
+                <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
                     {t("description")}
                 </p>
             </div>
             <CategoryFilter selectedCategories={selectedCategories} onSelectCategories={setSelectedCategories} />
 
             {isLoading ? (
-                <p className="text-center text-gray-600">Loading...</p>
+                <p className="text-center text-gray-600 dark:text-gray-300">Loading...</p>
             ) : (
                 <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
@@ -60,25 +60,23 @@ export default function BestSellingCoffee() {
                 >
                     {coffeeProducts.map((product, index) => (
                         <SwiperSlide key={`${product.id}-${index}`}>
-
-                            <div className="bg-white rounded-lg p-6 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full">
+                            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full">
                                 <div className="h-64 w-48 mb-6 relative">
                                     <Image src={product.image_url} alt={product.name} width={180} height={180} className="object-contain" />
-                                    <h3 className="absolute bottom-0 -translate-x-1/2 bg-amber-100 px-3 py-1 rounded-md text-center text-sm font-bold text-gray-800">
+                                    <h3 className="absolute bottom-0 -translate-x-1/2 bg-amber-100 dark:bg-amber-200 px-3 py-1 rounded-md text-center text-sm font-bold text-gray-800 dark:text-gray-900">
                                         {product.name}
                                     </h3>
                                 </div>
-                                <p className="text-gray-600 text-center mb-6">{product.description}</p>
-                                <span className="text-2xl font-bold text-gray-800">${product.price}</span>
-                                <div className=" w-full flex justify-evenly gap-2  mt-4">
-                                    <Button className="text-black border-2 bg-border">{t("buyNow")}</Button>
+                                <p className="text-gray-600 dark:text-gray-300 text-center mb-6">{product.description}</p>
+                                <span className="text-2xl font-bold text-gray-800 dark:text-gray-100">${product.price}</span>
+                                <div className="w-full flex justify-evenly gap-2 mt-4">
+                                    <Button className="text-black dark:text-white border-2 bg-border dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600">{t("buyNow")}</Button>
                                     <Button
-                                        className="text-white bg-[var(--color-footer)]"
+                                        className="text-white bg-[var(--color-footer)] dark:bg-amber-600 hover:bg-amber-700 dark:hover:bg-amber-700"
                                         onClick={() => handleAddToCart(product)}
                                     >
                                         {t("addToCart")}
                                     </Button>
-
                                 </div>
                             </div>
                         </SwiperSlide>

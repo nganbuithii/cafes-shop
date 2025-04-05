@@ -4,7 +4,7 @@ import { Message, Preferences, Product } from "./types/productType";
 import { useRecommendationStore } from "@/store/recommendationStore";
 import { useProducts } from "@/queries/useProducts";
 import { generateSlug } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { CiMicrophoneOn } from "react-icons/ci";
 import Image from "next/image";
 
@@ -12,11 +12,15 @@ export default function AIChatbotPopup() {
     const { setPreferences, setRecommendations } = useRecommendationStore();
     const [input, setInput] = useState<string>("");
     const router = useRouter();
+    const pathname = usePathname();
     const [messages, setMessages] = useState<Message[]>([
         { sender: "bot", text: "Hello! What do you like? (e.g., I like sweet, no bitter)" }
     ]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isListening, setIsListening] = useState<boolean>(false);
+
+    // Hide chat on login and register pages
+    const shouldShowChat = !pathname?.includes('/login') && !pathname?.includes('/register');
 
     const { data: menuItems, isLoading, error } = useProducts();
 
@@ -129,6 +133,10 @@ export default function AIChatbotPopup() {
         }
     };
 
+    if (!shouldShowChat) {
+        return null;
+    }
+
     return (
         <>
             <button
@@ -140,13 +148,13 @@ export default function AIChatbotPopup() {
 
             {isOpen && (
                 <div className="fixed bottom-4 right-4 z-50">
-                    <div className="bg-white w-96 h-[500px] rounded-lg shadow-lg flex flex-col overflow-hidden">
+                    <div className="bg-white dark:bg-gray-800 w-96 h-[500px] rounded-lg shadow-lg flex flex-col overflow-hidden">
                         <div className="bg-pink-500 text-white p-4 flex justify-between items-center">
                             <span>🤖 Nanies Chat</span>
                             <button onClick={() => setIsOpen(false)} className="text-white font-bold">✖</button>
                         </div>
 
-                        <div className="flex-1 p-4 overflow-y-auto">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4">
                             {isLoading ? (
                                 <p>Loading menu...</p>
                             ) : error ? (
@@ -158,7 +166,7 @@ export default function AIChatbotPopup() {
                                         className={`mb-4 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                                     >
                                         <div
-                                            className={`max-w-[70%] p-3 rounded-lg ${msg.sender === "user" ? "bg-pink-500 text-white" : "bg-gray-200 text-gray-800"}`}
+                                            className={`max-w-[70%] p-3 rounded-lg ${msg.sender === "user" ? "bg-pink-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"}`}
                                         >
                                             <div className="whitespace-pre-wrap">{msg.text}</div>
                                         </div>
@@ -167,7 +175,7 @@ export default function AIChatbotPopup() {
                             )}
                         </div>
 
-                        <div className="p-4 border-t">
+                        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                             <div className="flex gap-2">
                                 <input
                                     type="text"
@@ -175,7 +183,7 @@ export default function AIChatbotPopup() {
                                     onChange={(e) => setInput(e.target.value)}
                                     onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                     placeholder="Enter your preferences..."
-                                    className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                                    className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
                                 />
                                 <button
                                     onClick={toggleSpeechRecognition}
@@ -183,7 +191,7 @@ export default function AIChatbotPopup() {
                                     disabled={!SpeechRecognition}
                                     title="Use voice input"
                                 >
-                                    <CiMicrophoneOn className="text-black " />
+                                    <CiMicrophoneOn className="text-black dark:text-white" />
                                 </button>
                                 <button
                                     onClick={handleSend}

@@ -9,7 +9,7 @@ export default function HeroSection() {
     return (
         <section className="container mx-auto px-6 py-10 md:py-24 flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-10 md:mb-0 animate__animated animate__bounceInLeft">
-                <h1 className="text-4xl md:text-5xl  font-bold leading-tight mb-6 ">
+                <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-gray-900 dark:text-gray-100">
                     {t("title")}
                     <span className="px-3">{t("highlight")}</span>
                 </h1>
@@ -24,14 +24,14 @@ export default function HeroSection() {
                     />
                 </div>
 
-                <p className="text-gray-600 mb-8">
+                <p className="text-gray-600 dark:text-gray-300 mb-8">
                     {t("description")}
                 </p>
 
                 <div className="flex flex-wrap gap-4">
                     <Link
                         href="/shop"
-                        className="bg-white hover:bg-gray-100 text-black px-8 py-3 rounded-md border border-gray-300 font-medium transition-colors"
+                        className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-black dark:text-white px-8 py-3 rounded-md border border-gray-300 dark:border-gray-600 font-medium transition-colors"
                     >
                         {t("explore")}
                     </Link>
@@ -48,7 +48,7 @@ export default function HeroSection() {
                         className="mx-auto"
                     />
 
-                    <div className="absolute bottom-10 left-0 bg-white p-4 rounded-lg shadow-lg">
+                    <div className="absolute bottom-10 left-0 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
                         <div className="flex mb-1">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <svg
@@ -60,7 +60,7 @@ export default function HeroSection() {
                                 </svg>
                             ))}
                         </div>
-                        <p className="text-sm">
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
                             4.9 out of 5 Overall Star <br />
                             Rating for All Local Business.
                         </p>

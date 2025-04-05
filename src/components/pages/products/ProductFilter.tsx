@@ -42,27 +42,34 @@ export function ProductFilter({ onFilterChange }: ProductFilterProps) {
     }, [selectedCategories, priceRange, onFilterChange]);
 
     return (
-        <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-            <div className="border-b pb-4 mb-4">
-                <h3 className="text-lg font-semibold text-gray-700">Filters</h3>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+            <div className="border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
+                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Filters</h3>
             </div>
 
             <div className="mb-6">
-                <h4 className="text-md font-medium text-gray-700 mb-3">Category</h4>
+                <h4 className="text-md font-medium text-gray-700 dark:text-gray-200 mb-3">Category</h4>
                 <div className="space-y-2">
                     {categoryOptions.map((category) => (
                         <div
                             key={category}
-                            className={`flex items-center space-x-3 p-2 rounded-lg cursor-pointer ${selectedCategories.includes(category) ? "bg-pink-50" : "hover:bg-gray-100"
-                                } transition duration-200`}
+                            className={`flex items-center space-x-3 p-2 rounded-lg cursor-pointer transition duration-200 ${
+                                selectedCategories.includes(category)
+                                    ? "bg-pink-50 dark:bg-pink-900/20"
+                                    : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                            }`}
                             onClick={() => handleCategoryChange(category, !selectedCategories.includes(category))}
                         >
                             <Checkbox
                                 id={category}
                                 checked={selectedCategories.includes(category)}
                                 onCheckedChange={(checked) => handleCategoryChange(category, checked as boolean)}
+                                className="border-gray-300 dark:border-gray-600"
                             />
-                            <Label htmlFor={category} className="text-gray-600 font-medium">
+                            <Label
+                                htmlFor={category}
+                                className="text-gray-600 dark:text-gray-300 font-medium cursor-pointer"
+                            >
                                 {category}
                             </Label>
                         </div>
@@ -71,10 +78,10 @@ export function ProductFilter({ onFilterChange }: ProductFilterProps) {
             </div>
 
             <div className="mb-6">
-                <h4 className="text-md font-medium text-gray-700 mb-3">Price Range</h4>
-                <div className="flex justify-between text-gray-600 text-sm mb-3">
-                    <span className="bg-gray-200 px-2 py-1 rounded-md">${priceRange[0]}</span>
-                    <span className="bg-gray-200 px-2 py-1 rounded-md">${priceRange[1]}</span>
+                <h4 className="text-md font-medium text-gray-700 dark:text-gray-200 mb-3">Price Range</h4>
+                <div className="flex justify-between text-gray-600 dark:text-gray-300 text-sm mb-3">
+                    <span className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-md">${priceRange[0]}</span>
+                    <span className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-md">${priceRange[1]}</span>
                 </div>
                 <Slider
                     value={priceRange}
@@ -90,7 +97,7 @@ export function ProductFilter({ onFilterChange }: ProductFilterProps) {
                 <Button
                     onClick={resetFilters}
                     variant="outline"
-                    className="w-full border-pink-400 text-pink-400 hover:bg-pink-50 transition duration-200 rounded-lg py-2"
+                    className="w-full border-pink-400 dark:border-pink-500 text-pink-400 dark:text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition duration-200 rounded-lg py-2"
                 >
                     Reset Filters
                 </Button>

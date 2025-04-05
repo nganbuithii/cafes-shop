@@ -31,8 +31,8 @@ export default function ExploreSection() {
     return (
         <section ref={sectionRef} className="container mx-auto px-6 py-16">
             <div className={`text-center mb-12 ${isVisible ? "animate__animated animate__fadeInUp" : "opacity-0"}`}>
-                <h2 className="text-4xl font-bold text-gray-900  mb-3">{t("title")}</h2>
-                <p className="max-w-2xl mx-auto text-gray-600">
+                <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">{t("title")}</h2>
+                <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
                     {t("description")}
                 </p>
             </div>
@@ -41,7 +41,7 @@ export default function ExploreSection() {
                 <Card
                     title={t("catering")}
                     description={t("catering_desc")}
-                    icon={<Utensils className="w-16 h-16 text-gray-700" />}
+                    icon={<Utensils className="w-16 h-16 text-gray-700 dark:text-gray-300" />}
                     link="/catering"
                     linkText={t("order_catering")}
                     isVisible={isVisible}
@@ -50,7 +50,7 @@ export default function ExploreSection() {
                 <Card
                     title={t("food")}
                     description={t("food_desc")}
-                    icon={<Soup className="w-16 h-16 text-gray-700" />}
+                    icon={<Soup className="w-16 h-16 text-gray-700 dark:text-gray-300" />}
                     link="/menu"
                     linkText={t("order_catering")}
                     isVisible={isVisible}
@@ -59,7 +59,7 @@ export default function ExploreSection() {
                 <Card
                     title={t("gelato")}
                     description={t("gelato_desc")}
-                    icon={<IceCream className="w-16 h-16 text-gray-700" />}
+                    icon={<IceCream className="w-16 h-16 text-gray-700 dark:text-gray-300" />}
                     link="/gelato"
                     linkText={t("discover_more")}
                     isVisible={isVisible}
@@ -81,15 +81,15 @@ interface CardProps {
 function Card({ title, description, icon, link, linkText, isVisible }: CardProps) {
     return (
         <div
-            className={`bg-white rounded-2xl shadow-md p-8 flex flex-col items-center text-center transition-transform duration-200 hover:shadow-lg hover:-translate-y-1 ${isVisible ? "animate__animated animate__zoomIn" : "opacity-0"
+            className={`bg-white dark:bg-gray-800 rounded-2xl shadow-md p-8 flex flex-col items-center text-center transition-transform duration-200 hover:shadow-lg hover:-translate-y-1 ${isVisible ? "animate__animated animate__zoomIn" : "opacity-0"
                 }`}
         >
             <div className="mb-5">{icon}</div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-3">{title}</h3>
-            <p className="text-gray-600 mb-6">{description}</p>
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-3">{title}</h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">{description}</p>
             <Link
                 href={link}
-                className="bg-amber-100 hover:bg-gray-800 text-white px-6 py-2 rounded-md font-medium transition-all duration-200"
+                className="bg-amber-100 dark:bg-amber-200 hover:bg-gray-800 dark:hover:bg-gray-700 hover:text-white dark:hover:text-gray-100 text-gray-800 dark:text-gray-800 px-6 py-2 rounded-md font-medium transition-all duration-200"
             >
                 {linkText}
             </Link>

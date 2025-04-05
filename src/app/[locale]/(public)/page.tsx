@@ -6,9 +6,8 @@ import HeroSection from "@/components/pages/home/HeroSection";
 
 export default function Home() {
   return (
-    <div className="pt-8 bg-white dark:bg-black w-full">
+    <div className="pt-8 bg-white dark:bg-gray-900 w-full">
       <main>
-      
         <HeroSection />
         <ExploreSection />
         <BestSellingCoffee />
